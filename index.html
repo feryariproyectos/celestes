@@ -9,7 +9,7 @@
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
   --bg:#07091c;--bg2:#0d1030;--bg3:#111540;
-  --gold:#c9a84c;--gold-dim:rgba(201,168,76,0.10);--gold-line:rgba(201,168,76,0.18);
+  --gold:#4a9e90;--gold-dim:rgba(74,158,144,0.10);--gold-line:rgba(74,158,144,0.20);
   --silver:#b8c4d8;--text:#cdc8bc;--text-dim:#6e6a7a;--ink:#f0ead8;
   --stripe:#635BFF;--mp:#009EE3;
   --r:4px;
@@ -72,15 +72,17 @@ section{padding:4rem 5%}
 .product-card.featured{background:linear-gradient(140deg,#100d30 0%,var(--bg2) 100%)}
 .p-tag{display:inline-block;font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;padding:.2rem .6rem;border:.5px solid var(--gold-line);color:var(--gold);margin-bottom:.9rem;background:var(--gold-dim);border-radius:2px}
 .p-gift-tag{display:inline-block;font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.16em;text-transform:uppercase;padding:.2rem .6rem;border:.5px solid rgba(184,196,216,.25);color:var(--silver);margin-bottom:.9rem;background:rgba(184,196,216,.06);border-radius:2px;margin-left:.4rem}
-.p-icon{font-size:1.5rem;color:var(--gold);opacity:.62;margin-bottom:.9rem;display:block}
+.p-icon{display:block;margin-bottom:0}
 .p-title{font-family:'Cormorant Upright',serif;font-size:1.3rem;font-weight:400;color:var(--ink);margin-bottom:.35rem;line-height:1.15}
 .p-tagline{font-size:.84rem;color:var(--text-dim);line-height:1.7;font-style:italic;flex:1;margin-bottom:1.2rem}
 .p-price-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.4rem;margin-bottom:.9rem}
 .p-price-usd{font-family:'Cinzel',serif;font-size:.95rem;color:var(--gold);letter-spacing:.05em}
-.p-price-ars{font-size:.76rem;color:var(--text-dim)}
+.p-price-ars{font-size:.9rem;color:var(--text-dim)}
 .p-badges{display:flex;gap:.4rem;align-items:center}
-.badge-stripe{background:#1a1840;border:.5px solid rgba(99,91,255,.3);color:#a09cf7;font-size:.56rem;font-family:'Cinzel',serif;letter-spacing:.1em;padding:.18rem .5rem;border-radius:2px}
-.badge-mp{background:#00284a;border:.5px solid rgba(0,158,227,.3);color:#5ec6f0;font-size:.56rem;font-family:'Cinzel',serif;letter-spacing:.1em;padding:.18rem .5rem;border-radius:2px}
+.badge-stripe{background:#1a1840;border:.5px solid rgba(99,91,255,.3);padding:.18rem .5rem;border-radius:2px;display:flex;align-items:center}
+.badge-stripe svg{height:11px;width:auto;opacity:.85}
+.badge-mp{background:#00284a;border:.5px solid rgba(0,158,227,.3);padding:.18rem .5rem;border-radius:2px;display:flex;align-items:center}
+.badge-mp svg{height:11px;width:auto;opacity:.85}
 .p-cta{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;background:transparent;color:var(--gold);border:.5px solid var(--gold-line);padding:.55rem .9rem;cursor:pointer;border-radius:var(--r);transition:all .2s;width:100%}
 .p-cta:hover{background:var(--gold-dim);border-color:var(--gold)}
 
@@ -244,7 +246,7 @@ footer{padding:2.5rem 5%;border-top:.5px solid var(--gold-line)}
 <!-- ── GIFT BANNER ── -->
 <div class="gift-banner">
   <div class="gift-inner">
-    <span class="gift-icon">✦</span>
+    <span class="gift-icon"><svg width="24" height="24" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" fill="none" opacity="0.7"><path d="M18 14c-2-4-6-6-9-4s-2 7 2 8h7" stroke="#4a9e90" stroke-width="1.5" stroke-linecap="round"/><path d="M18 14c2-4 6-6 9-4s2 7-2 8h-7" stroke="#4a9e90" stroke-width="1.5" stroke-linecap="round"/><rect x="10" y="18" width="16" height="10" rx="1.5" stroke="#4a9e90" stroke-width="1.5"/><line x1="18" y1="18" x2="18" y2="28" stroke="#4a9e90" stroke-width="1.5"/><line x1="10" y1="22" x2="26" y2="22" stroke="#4a9e90" stroke-width="1"/></svg></span>
     <p class="gift-text">Una lectura astrológica es el regalo que <strong>nadie olvida</strong> — porque habla de quien es, no de lo que tiene.</p>
     <button class="gift-btn" onclick="document.getElementById('regalos').scrollIntoView({behavior:'smooth'})">Ver opciones de regalo</button>
   </div>
@@ -262,71 +264,176 @@ footer{padding:2.5rem 5%;border-top:.5px solid var(--gold-line)}
 
     <div class="product-card featured" onclick="openModal('natal-adultos')">
       <div><span class="p-tag">Más solicitada</span><span class="p-gift-tag">✦ regalo</span></div>
-      <span class="p-icon">☉</span>
+      <svg width="72" height="72" viewBox="-70 -70 140 140" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 1rem">
+  <circle cx="0" cy="0" r="55" fill="none" stroke="#7a80c8" stroke-width="0.5" opacity="0.25"/>
+  <circle cx="0" cy="0" r="40" fill="none" stroke="#7a80c8" stroke-width="0.7" opacity="0.38"/>
+  <circle cx="0" cy="0" r="26" fill="none" stroke="#7a80c8" stroke-width="1" opacity="0.55"/>
+  <line x1="0" y1="-55" x2="0" y2="-26" stroke="#7a80c8" stroke-width="0.7" opacity="0.5"/>
+  <line x1="0" y1="55" x2="0" y2="26" stroke="#7a80c8" stroke-width="0.7" opacity="0.5"/>
+  <line x1="-55" y1="0" x2="-26" y2="0" stroke="#7a80c8" stroke-width="0.7" opacity="0.5"/>
+  <line x1="55" y1="0" x2="26" y2="0" stroke="#7a80c8" stroke-width="0.7" opacity="0.5"/>
+  <line x1="-39" y1="-39" x2="-18" y2="-18" stroke="#7a80c8" stroke-width="0.6" opacity="0.4"/>
+  <line x1="39" y1="-39" x2="18" y2="-18" stroke="#7a80c8" stroke-width="0.6" opacity="0.4"/>
+  <line x1="-39" y1="39" x2="-18" y2="18" stroke="#7a80c8" stroke-width="0.6" opacity="0.4"/>
+  <line x1="39" y1="39" x2="18" y2="18" stroke="#7a80c8" stroke-width="0.6" opacity="0.4"/>
+  <circle cx="0" cy="-40" r="2.5" fill="#7a80c8" opacity="0.75"/>
+  <circle cx="28" cy="-28" r="2" fill="#7a80c8" opacity="0.6"/>
+  <circle cx="40" cy="0" r="2.5" fill="#7a80c8" opacity="0.75"/>
+  <circle cx="28" cy="28" r="2" fill="#7a80c8" opacity="0.6"/>
+  <circle cx="0" cy="40" r="2.5" fill="#7a80c8" opacity="0.75"/>
+  <circle cx="-28" cy="28" r="2" fill="#7a80c8" opacity="0.6"/>
+  <circle cx="-40" cy="0" r="2.5" fill="#7a80c8" opacity="0.75"/>
+  <circle cx="-28" cy="-28" r="2" fill="#7a80c8" opacity="0.6"/>
+  <circle cx="0" cy="0" r="8" fill="none" stroke="#7a80c8" stroke-width="1.4" opacity="0.9"/>
+  <circle cx="0" cy="0" r="3.5" fill="#7a80c8" opacity="0.9"/>
+</svg>
       <h3 class="p-title">Carta Natal · Adultos</h3>
       <p class="p-tagline">Tu mapa de vida completo. Arquetipos, potenciales y el camino que el alma vino a recorrer. Perspectiva junguiana y evolutiva.</p>
       <div class="p-price-row">
         <div><div class="p-price-usd">USD 50</div><div class="p-price-ars" id="ars-natal-adultos"></div></div>
-        <div class="p-badges"><span class="badge-stripe">Stripe</span><span class="badge-mp">MP</span></div>
+        <div class="p-badges"><span class="badge-stripe"><svg viewBox="0 0 80 22" height="12" xmlns="http://www.w3.org/2000/svg"><text x="2" y="16" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="14" fill="#a09cf7" letter-spacing="-0.5">stripe</text></svg></span><span class="badge-mp"><svg viewBox="0 0 110 22" height="12" xmlns="http://www.w3.org/2000/svg"><text x="2" y="16" font-family="Arial,sans-serif" font-weight="700" font-size="11" fill="#5ec6f0">Mercado Pago</text></svg></span></div>
       </div>
-      <button class="p-cta">Solicitar lectura →</button>
+      <button class="p-cta">Pedir mi Carta Natal →</button>
     </div>
 
     <div class="product-card" onclick="openModal('natal-ninos')">
       <div><span class="p-gift-tag">✦ regalo ideal</span></div>
-      <span class="p-icon">☾</span>
+      <svg width="72" height="72" viewBox="-70 -70 140 140" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 1rem">
+  <circle cx="-30" cy="-40" r="1.2" fill="#c87890" opacity="0.45"/>
+  <circle cx="35" cy="-35" r="1" fill="#c87890" opacity="0.4"/>
+  <circle cx="42" cy="15" r="1.5" fill="#c87890" opacity="0.5"/>
+  <circle cx="-42" cy="20" r="1" fill="#c87890" opacity="0.35"/>
+  <circle cx="10" cy="48" r="1.2" fill="#c87890" opacity="0.45"/>
+  <circle cx="-15" cy="42" r="1" fill="#c87890" opacity="0.4"/>
+  <line x1="0" y1="0" x2="-30" y2="-40" stroke="#c87890" stroke-width="0.7" opacity="0.4"/>
+  <line x1="0" y1="0" x2="35" y2="-35" stroke="#c87890" stroke-width="0.7" opacity="0.4"/>
+  <line x1="0" y1="0" x2="42" y2="15" stroke="#c87890" stroke-width="0.7" opacity="0.4"/>
+  <line x1="0" y1="0" x2="-42" y2="20" stroke="#c87890" stroke-width="0.7" opacity="0.4"/>
+  <line x1="0" y1="0" x2="10" y2="48" stroke="#c87890" stroke-width="0.7" opacity="0.4"/>
+  <line x1="-30" y1="-40" x2="35" y2="-35" stroke="#c87890" stroke-width="0.4" opacity="0.25"/>
+  <line x1="35" y1="-35" x2="42" y2="15" stroke="#c87890" stroke-width="0.4" opacity="0.25"/>
+  <line x1="-42" y1="20" x2="10" y2="48" stroke="#c87890" stroke-width="0.4" opacity="0.25"/>
+  <circle cx="-30" cy="-40" r="3.5" fill="none" stroke="#c87890" stroke-width="0.9" opacity="0.75"/>
+  <circle cx="35" cy="-35" r="3" fill="none" stroke="#c87890" stroke-width="0.9" opacity="0.7"/>
+  <circle cx="42" cy="15" r="3.5" fill="none" stroke="#c87890" stroke-width="0.9" opacity="0.75"/>
+  <circle cx="-42" cy="20" r="3" fill="none" stroke="#c87890" stroke-width="0.9" opacity="0.7"/>
+  <circle cx="10" cy="48" r="3.5" fill="none" stroke="#c87890" stroke-width="0.9" opacity="0.75"/>
+  <circle cx="0" cy="0" r="5.5" fill="none" stroke="#c87890" stroke-width="1.1" opacity="0.85"/>
+  <circle cx="0" cy="0" r="2.2" fill="#c87890" opacity="0.75"/>
+  <path d="M -50 10 Q 0 -58 50 10" fill="none" stroke="#c87890" stroke-width="0.5" stroke-dasharray="3 4" opacity="0.3"/>
+</svg>
       <h3 class="p-title">Carta Natal · Niños</h3>
       <p class="p-tagline">Para padres que quieren conocer y acompañar los talentos únicos de sus hij@s. El regalo más significativo que podés hacerle a una familia.</p>
       <div class="p-price-row">
         <div><div class="p-price-usd">USD 35</div><div class="p-price-ars" id="ars-natal-ninos"></div></div>
-        <div class="p-badges"><span class="badge-stripe">Stripe</span><span class="badge-mp">MP</span></div>
+        <div class="p-badges"><span class="badge-stripe"><svg viewBox="0 0 80 22" height="12" xmlns="http://www.w3.org/2000/svg"><text x="2" y="16" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="14" fill="#a09cf7" letter-spacing="-0.5">stripe</text></svg></span><span class="badge-mp"><svg viewBox="0 0 110 22" height="12" xmlns="http://www.w3.org/2000/svg"><text x="2" y="16" font-family="Arial,sans-serif" font-weight="700" font-size="11" fill="#5ec6f0">Mercado Pago</text></svg></span></div>
       </div>
-      <button class="p-cta">Solicitar lectura →</button>
+      <button class="p-cta">Pedir la Carta de mi Hijo/a →</button>
     </div>
 
     <div class="product-card" onclick="openModal('revolucion')">
-      <span class="p-icon">♄</span>
+      <svg width="72" height="72" viewBox="-70 -70 140 140" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 1rem">
+  <path d="M 0 0 Q 8 -18 18 -10 Q 28 -2 22 12 Q 16 26 0 28 Q -16 30 -28 18 Q -40 6 -36 -12 Q -32 -30 -16 -42 Q 0 -54 20 -48" fill="none" stroke="#c8a040" stroke-width="1.3" opacity="0.85"/>
+  <path d="M 20 -48 L 28 -44" fill="none" stroke="#c8a040" stroke-width="1.3" opacity="0.85"/>
+  <path d="M 20 -48 L 22 -56" fill="none" stroke="#c8a040" stroke-width="1.3" opacity="0.85"/>
+  <line x1="0" y1="-54" x2="0" y2="-46" stroke="#c8a040" stroke-width="0.9" opacity="0.65"/>
+  <line x1="0" y1="28" x2="0" y2="36" stroke="#c8a040" stroke-width="0.9" opacity="0.65"/>
+  <line x1="-40" y1="0" x2="-48" y2="0" stroke="#c8a040" stroke-width="0.9" opacity="0.65"/>
+  <circle cx="0" cy="-50" r="2.5" fill="#c8a040" opacity="0.85"/>
+  <circle cx="0" cy="28" r="2.5" fill="#c8a040" opacity="0.85"/>
+  <circle cx="-36" cy="0" r="2.5" fill="#c8a040" opacity="0.85"/>
+  <circle cx="0" cy="0" r="9" fill="none" stroke="#c8a040" stroke-width="1.1" opacity="0.75"/>
+  <circle cx="0" cy="0" r="4.5" fill="#c8a040" opacity="0.9"/>
+  <line x1="0" y1="-9" x2="0" y2="-16" stroke="#c8a040" stroke-width="0.8" opacity="0.55"/>
+  <line x1="0" y1="9" x2="0" y2="16" stroke="#c8a040" stroke-width="0.8" opacity="0.55"/>
+  <line x1="9" y1="0" x2="16" y2="0" stroke="#c8a040" stroke-width="0.8" opacity="0.55"/>
+  <line x1="-9" y1="0" x2="-16" y2="0" stroke="#c8a040" stroke-width="0.8" opacity="0.55"/>
+</svg>
       <h3 class="p-title">Revolución Solar</h3>
       <p class="p-tagline">El mapa de tu año personal. Qué temas activa el cielo en tu cumpleaños, las ventanas de oportunidad y tu agenda astrológica del ciclo.</p>
       <div class="p-price-row">
         <div><div class="p-price-usd">USD 50</div><div class="p-price-ars" id="ars-revolucion"></div></div>
-        <div class="p-badges"><span class="badge-stripe">Stripe</span><span class="badge-mp">MP</span></div>
+        <div class="p-badges"><span class="badge-stripe"><svg viewBox="0 0 80 22" height="12" xmlns="http://www.w3.org/2000/svg"><text x="2" y="16" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="14" fill="#a09cf7" letter-spacing="-0.5">stripe</text></svg></span><span class="badge-mp"><svg viewBox="0 0 110 22" height="12" xmlns="http://www.w3.org/2000/svg"><text x="2" y="16" font-family="Arial,sans-serif" font-weight="700" font-size="11" fill="#5ec6f0">Mercado Pago</text></svg></span></div>
       </div>
-      <button class="p-cta">Solicitar lectura →</button>
+      <button class="p-cta">Pedir mi Revolución Solar →</button>
     </div>
 
     <div class="product-card" onclick="openModal('armonicos')">
-      <span class="p-icon">♃</span>
+      <svg width="72" height="72" viewBox="-70 -60 140 120" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 1rem">
+  <path d="M -55 -30 Q -35 -44 -15 -30 Q 5 -16 25 -30 Q 45 -44 55 -30" fill="none" stroke="#4a9e90" stroke-width="0.8" opacity="0.42"/>
+  <path d="M -55 -12 Q -40 -26 -22 -12 Q -4 2 14 -12 Q 32 -26 55 -12" fill="none" stroke="#4a9e90" stroke-width="1" opacity="0.55"/>
+  <path d="M -55 8 Q -36 -10 -18 8 Q 0 26 18 8 Q 36 -10 55 8" fill="none" stroke="#4a9e90" stroke-width="1.6" opacity="0.9"/>
+  <path d="M -55 26 Q -42 18 -28 26 Q -14 34 0 26 Q 14 18 28 26 Q 42 34 55 26" fill="none" stroke="#4a9e90" stroke-width="1" opacity="0.55"/>
+  <path d="M -55 40 Q -48 34 -40 40 Q -32 46 -24 40 Q -16 34 -8 40 Q 0 46 8 40 Q 16 34 24 40 Q 32 46 40 40 Q 48 34 55 40" fill="none" stroke="#4a9e90" stroke-width="0.6" opacity="0.32"/>
+  <line x1="-55" y1="-50" x2="-55" y2="50" stroke="#4a9e90" stroke-width="0.4" opacity="0.18"/>
+  <line x1="0" y1="-50" x2="0" y2="50" stroke="#4a9e90" stroke-width="0.4" opacity="0.18"/>
+  <line x1="55" y1="-50" x2="55" y2="50" stroke="#4a9e90" stroke-width="0.4" opacity="0.18"/>
+  <circle cx="-36" cy="-10" r="3.2" fill="#4a9e90" opacity="0.9"/>
+  <circle cx="0" cy="26" r="3.8" fill="#4a9e90" opacity="0.95"/>
+  <circle cx="36" cy="-10" r="3.2" fill="#4a9e90" opacity="0.9"/>
+</svg>
       <h3 class="p-title">Carta de Armónicos</h3>
       <p class="p-tagline">La frecuencia fundamental de tu psique. Una grilla de 12 cuerpos celestes revela los arquetipos profundos que operan por debajo de la carta natal.</p>
       <div class="p-price-row">
         <div><div class="p-price-usd">USD 40</div><div class="p-price-ars" id="ars-armonicos"></div></div>
-        <div class="p-badges"><span class="badge-stripe">Stripe</span><span class="badge-mp">MP</span></div>
+        <div class="p-badges"><span class="badge-stripe"><svg viewBox="0 0 80 22" height="12" xmlns="http://www.w3.org/2000/svg"><text x="2" y="16" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="14" fill="#a09cf7" letter-spacing="-0.5">stripe</text></svg></span><span class="badge-mp"><svg viewBox="0 0 110 22" height="12" xmlns="http://www.w3.org/2000/svg"><text x="2" y="16" font-family="Arial,sans-serif" font-weight="700" font-size="11" fill="#5ec6f0">Mercado Pago</text></svg></span></div>
       </div>
-      <button class="p-cta">Solicitar lectura →</button>
+      <button class="p-cta">Pedir mis Armónicos →</button>
     </div>
 
     <div class="product-card" onclick="openModal('guia-lunar')">
-      <span class="p-icon">☽</span>
+      <svg width="72" height="72" viewBox="-70 -50 140 120" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 1rem">
+  <circle cx="-48" cy="8" r="10" fill="none" stroke="#8aaec8" stroke-width="0.9" opacity="0.6"/>
+  <circle cx="-24" cy="-4" r="10" fill="none" stroke="#8aaec8" stroke-width="0.9" opacity="0.7"/>
+  <path d="M -24 -14 Q -14 -4 -24 6" fill="#8aaec8" opacity="0.5"/>
+  <circle cx="0" cy="-16" r="14" fill="none" stroke="#8aaec8" stroke-width="1.3" opacity="0.92"/>
+  <circle cx="0" cy="-16" r="10" fill="#8aaec8" opacity="0.16"/>
+  <circle cx="0" cy="-16" r="19" fill="none" stroke="#8aaec8" stroke-width="0.4" stroke-dasharray="2 3" opacity="0.28"/>
+  <circle cx="24" cy="-4" r="10" fill="none" stroke="#8aaec8" stroke-width="0.9" opacity="0.7"/>
+  <path d="M 24 -14 Q 34 -4 24 6" fill="#8aaec8" opacity="0.0"/>
+  <path d="M 24 -14 Q 14 -4 24 6" fill="#8aaec8" opacity="0.5"/>
+  <circle cx="48" cy="8" r="10" fill="none" stroke="#8aaec8" stroke-width="0.9" opacity="0.6"/>
+  <path d="M -48 8 Q -36 -6 -24 -4 Q -12 -2 0 -16 Q 12 -30 24 -4 Q 36 -4 48 8" fill="none" stroke="#8aaec8" stroke-width="0.5" stroke-dasharray="2 3" opacity="0.32"/>
+  <line x1="-58" y1="22" x2="58" y2="22" stroke="#8aaec8" stroke-width="0.4" opacity="0.22"/>
+  <path d="M -40 30 Q -30 27 -20 30 Q -10 33 0 30 Q 10 27 20 30 Q 30 33 40 30" fill="none" stroke="#8aaec8" stroke-width="0.5" opacity="0.2"/>
+  <path d="M -30 38 Q -20 35 -10 38 Q 0 41 10 38 Q 20 35 30 38" fill="none" stroke="#8aaec8" stroke-width="0.4" opacity="0.14"/>
+</svg>
       <h3 class="p-title">Guía Lunar Mensual</h3>
       <p class="p-tagline">Las lunaciones del mes en relación a tu carta natal. Cuándo sembrar, cuándo soltar, cuándo actuar. Tu calendario interior personalizado.</p>
       <div class="p-price-row">
         <div><div class="p-price-usd">USD 25</div><div class="p-price-ars" id="ars-guia-lunar"></div></div>
-        <div class="p-badges"><span class="badge-stripe">Stripe</span><span class="badge-mp">MP</span></div>
+        <div class="p-badges"><span class="badge-stripe"><svg viewBox="0 0 80 22" height="12" xmlns="http://www.w3.org/2000/svg"><text x="2" y="16" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="14" fill="#a09cf7" letter-spacing="-0.5">stripe</text></svg></span><span class="badge-mp"><svg viewBox="0 0 110 22" height="12" xmlns="http://www.w3.org/2000/svg"><text x="2" y="16" font-family="Arial,sans-serif" font-weight="700" font-size="11" fill="#5ec6f0">Mercado Pago</text></svg></span></div>
       </div>
-      <button class="p-cta">Solicitar lectura →</button>
+      <button class="p-cta">Pedir mi Guía Lunar →</button>
     </div>
 
     <div class="product-card" onclick="openModal('encuentro')">
       <div><span class="p-gift-tag">✦ regalo para dos</span></div>
-      <span class="p-icon">♀</span>
+      <svg width="72" height="72" viewBox="-70 -55 140 110" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto 1rem">
+  <circle cx="-22" cy="0" r="40" fill="none" stroke="#7aaa88" stroke-width="1.1" opacity="0.72"/>
+  <circle cx="-22" cy="0" r="28" fill="none" stroke="#7aaa88" stroke-width="0.5" opacity="0.38"/>
+  <circle cx="-22" cy="0" r="14" fill="none" stroke="#7aaa88" stroke-width="0.5" opacity="0.28"/>
+  <circle cx="22" cy="0" r="40" fill="none" stroke="#c89050" stroke-width="1.1" opacity="0.72"/>
+  <circle cx="22" cy="0" r="28" fill="none" stroke="#c89050" stroke-width="0.5" opacity="0.38"/>
+  <circle cx="22" cy="0" r="14" fill="none" stroke="#c89050" stroke-width="0.5" opacity="0.28"/>
+  <path d="M 0 -33 Q 18 0 0 33 Q -18 0 0 -33 Z" fill="rgba(180,160,100,0.07)" stroke="rgba(180,160,100,0.22)" stroke-width="0.5"/>
+  <circle cx="-22" cy="0" r="4.5" fill="#7aaa88" opacity="0.88"/>
+  <circle cx="22" cy="0" r="4.5" fill="#c89050" opacity="0.88"/>
+  <circle cx="0" cy="0" r="3.5" fill="none" stroke="rgba(180,160,100,0.72)" stroke-width="1.1"/>
+  <circle cx="0" cy="0" r="1.5" fill="rgba(180,160,100,0.85)"/>
+  <line x1="-22" y1="0" x2="22" y2="0" stroke="rgba(180,160,100,0.38)" stroke-width="0.8" stroke-dasharray="3 3"/>
+  <circle cx="-22" cy="-40" r="2" fill="#7aaa88" opacity="0.48"/>
+  <circle cx="-22" cy="40" r="2" fill="#7aaa88" opacity="0.48"/>
+  <circle cx="22" cy="-40" r="2" fill="#c89050" opacity="0.48"/>
+  <circle cx="22" cy="40" r="2" fill="#c89050" opacity="0.48"/>
+</svg>
       <h3 class="p-title">El Mapa del Encuentro</h3>
       <p class="p-tagline">Sinastría + carta composite. Para parejas, socios, amistades o vínculos familiares. Qué activa el otro en vos y qué crean juntos en el mundo.</p>
       <div class="p-price-row">
         <div><div class="p-price-usd">USD —</div><div class="p-price-ars">Próximamente</div></div>
-        <div class="p-badges"><span class="badge-stripe">Stripe</span><span class="badge-mp">MP</span></div>
+        <div class="p-badges"><span class="badge-stripe"><svg viewBox="0 0 80 22" height="12" xmlns="http://www.w3.org/2000/svg"><text x="2" y="16" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="14" fill="#a09cf7" letter-spacing="-0.5">stripe</text></svg></span><span class="badge-mp"><svg viewBox="0 0 110 22" height="12" xmlns="http://www.w3.org/2000/svg"><text x="2" y="16" font-family="Arial,sans-serif" font-weight="700" font-size="11" fill="#5ec6f0">Mercado Pago</text></svg></span></div>
       </div>
-      <button class="p-cta">Anotarme →</button>
+      <button class="p-cta">Anotarme al lanzamiento →</button>
     </div>
 
   </div>
@@ -348,7 +455,7 @@ footer{padding:2.5rem 5%;border-top:.5px solid var(--gold-line)}
 
   <div class="gift-cards">
     <div class="gift-card">
-      <span class="gift-card-icon">🎂</span>
+      <span class="gift-card-icon"><svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" fill="none" opacity="0.65"><path d="M18 14c-2-4-6-6-9-4s-2 7 2 8h7" stroke="#4a9e90" stroke-width="1.5" stroke-linecap="round"/><path d="M18 14c2-4 6-6 9-4s2 7-2 8h-7" stroke="#4a9e90" stroke-width="1.5" stroke-linecap="round"/><rect x="10" y="18" width="16" height="10" rx="1.5" stroke="#4a9e90" stroke-width="1.5"/><line x1="18" y1="18" x2="18" y2="28" stroke="#4a9e90" stroke-width="1.5"/><line x1="10" y1="22" x2="26" y2="22" stroke="#4a9e90" stroke-width="1"/></svg></span>
       <h3 class="gift-card-title">Cumpleaños</h3>
       <p class="gift-card-text">La Carta Natal o la Revolución Solar son el regalo de cumpleaños más personal que existe. El cielo del día que nació, solo para esa persona.</p>
     </div>
@@ -386,7 +493,7 @@ footer{padding:2.5rem 5%;border-top:.5px solid var(--gold-line)}
 
     <div class="acc-item">
       <div class="acc-header" onclick="toggleAcc(this)">
-        <div class="acc-title-wrap"><span class="acc-icon-sm">☉</span><span class="acc-title">Carta Natal · Adultos — USD 50</span></div>
+        <div class="acc-title-wrap"><span class="acc-icon-sm" style="color:#7a80c8">◉</span><span class="acc-title">Carta Natal · Adultos — USD 50</span></div>
         <span class="acc-arrow">▾</span>
       </div>
       <div class="acc-body"><div class="acc-content">
@@ -397,7 +504,7 @@ footer{padding:2.5rem 5%;border-top:.5px solid var(--gold-line)}
 
     <div class="acc-item">
       <div class="acc-header" onclick="toggleAcc(this)">
-        <div class="acc-title-wrap"><span class="acc-icon-sm">☾</span><span class="acc-title">Carta Natal · Niños — USD 35</span></div>
+        <div class="acc-title-wrap"><span class="acc-icon-sm" style="color:#c87890">◉</span><span class="acc-title">Carta Natal · Niños — USD 35</span></div>
         <span class="acc-arrow">▾</span>
       </div>
       <div class="acc-body"><div class="acc-content">
@@ -408,7 +515,7 @@ footer{padding:2.5rem 5%;border-top:.5px solid var(--gold-line)}
 
     <div class="acc-item">
       <div class="acc-header" onclick="toggleAcc(this)">
-        <div class="acc-title-wrap"><span class="acc-icon-sm">♄</span><span class="acc-title">Revolución Solar — USD 50</span></div>
+        <div class="acc-title-wrap"><span class="acc-icon-sm" style="color:#c8a040">◉</span><span class="acc-title">Revolución Solar — USD 50</span></div>
         <span class="acc-arrow">▾</span>
       </div>
       <div class="acc-body"><div class="acc-content">
@@ -419,7 +526,7 @@ footer{padding:2.5rem 5%;border-top:.5px solid var(--gold-line)}
 
     <div class="acc-item">
       <div class="acc-header" onclick="toggleAcc(this)">
-        <div class="acc-title-wrap"><span class="acc-icon-sm">♃</span><span class="acc-title">Carta de Armónicos — USD 40</span></div>
+        <div class="acc-title-wrap"><span class="acc-icon-sm" style="color:#4a9e90">◉</span><span class="acc-title">Carta de Armónicos — USD 40</span></div>
         <span class="acc-arrow">▾</span>
       </div>
       <div class="acc-body"><div class="acc-content">
@@ -430,7 +537,7 @@ footer{padding:2.5rem 5%;border-top:.5px solid var(--gold-line)}
 
     <div class="acc-item">
       <div class="acc-header" onclick="toggleAcc(this)">
-        <div class="acc-title-wrap"><span class="acc-icon-sm">☽</span><span class="acc-title">Guía Lunar Mensual — USD 25</span></div>
+        <div class="acc-title-wrap"><span class="acc-icon-sm" style="color:#8aaec8">◉</span><span class="acc-title">Guía Lunar Mensual — USD 25</span></div>
         <span class="acc-arrow">▾</span>
       </div>
       <div class="acc-body"><div class="acc-content">
@@ -441,7 +548,7 @@ footer{padding:2.5rem 5%;border-top:.5px solid var(--gold-line)}
 
     <div class="acc-item">
       <div class="acc-header" onclick="toggleAcc(this)">
-        <div class="acc-title-wrap"><span class="acc-icon-sm">♀</span><span class="acc-title">El Mapa del Encuentro — precio próximamente</span></div>
+        <div class="acc-title-wrap"><span class="acc-icon-sm" style="color:#7aaa88">◉</span><span class="acc-title">El Mapa del Encuentro — precio próximamente</span></div>
         <span class="acc-arrow">▾</span>
       </div>
       <div class="acc-body"><div class="acc-content">
@@ -475,7 +582,7 @@ footer{padding:2.5rem 5%;border-top:.5px solid var(--gold-line)}
     </div>
     <div class="footer-links-group">
       <h4>Lecturas</h4>
-      <a onclick="openModal('natal-adultos')">Carta Natal · Adultos</a>
+      <a onclick="openModal('natal-adultos')" style="cursor:pointer">Carta Natal · Adultos</a>
       <a onclick="openModal('natal-ninos')">Carta Natal · Niños</a>
       <a onclick="openModal('revolucion')">Revolución Solar</a>
       <a onclick="openModal('armonicos')">Carta de Armónicos</a>
