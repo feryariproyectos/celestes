@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Celestes · Lecturas Astrológicas</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#07091c;--bg2:#0d1030;--bg3:#111540;
+  --gold:#c9a84c;--gold-dim:rgba(201,168,76,0.10);--gold-line:rgba(201,168,76,0.18);
+  --silver:#b8c4d8;--text:#cdc8bc;--text-dim:#6e6a7a;--ink:#f0ead8;
+  --stripe:#635BFF;--mp:#009EE3;
+  --r:4px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Cormorant Garamond',Georgia,serif;overflow-x:hidden}
+
+/* ── NAV ── */
+nav{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 5%;border-bottom:.5px solid var(--gold-line);position:sticky;top:0;background:rgba(7,9,28,.96);backdrop-filter:blur(10px);z-index:100;gap:1rem}
+.nav-logo{font-family:'Cinzel',serif;font-size:1.2rem;letter-spacing:.22em;color:var(--gold);white-space:nowrap;cursor:pointer}
+.nav-logo span{font-size:.55rem;display:block;letter-spacing:.3em;color:var(--text-dim);margin-top:-2px;font-family:'Cormorant Garamond',serif;font-style:italic}
+.nav-links{display:flex;gap:1.8rem;list-style:none}
+.nav-links a{font-size:.72rem;letter-spacing:.12em;color:var(--text-dim);text-decoration:none;text-transform:uppercase;transition:color .2s;white-space:nowrap}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.12em;color:var(--bg);background:var(--gold);border:none;padding:.5rem 1.2rem;cursor:pointer;text-transform:uppercase;white-space:nowrap;border-radius:var(--r);transition:opacity .2s}
+.nav-cta:hover{opacity:.86}
+@media(max-width:600px){.nav-links{display:none}}
+
+/* ── HERO ── */
+.hero{min-height:92vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5rem 5% 6rem;position:relative;overflow:hidden}
+canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-52%);width:min(600px,90vw);height:min(600px,90vw);border-radius:50%;background:radial-gradient(ellipse,rgba(40,28,90,.38) 0%,rgba(100,60,130,.10) 45%,transparent 70%);pointer-events:none}
+.hero-inner{position:relative;z-index:1;max-width:680px;margin:0 auto}
+.eyebrow{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.38em;color:var(--gold);text-transform:uppercase;margin-bottom:1.6rem;opacity:.82}
+.hero h1{font-family:'Cormorant Upright',serif;font-size:clamp(2.8rem,7vw,5rem);font-weight:300;color:var(--ink);line-height:1.07;margin-bottom:1.5rem}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:clamp(1rem,2.5vw,1.12rem);color:var(--silver);line-height:1.82;max-width:460px;margin:0 auto 2.6rem;font-weight:300}
+.hero-actions{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;justify-content:center}
+.btn-primary{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;background:var(--gold);color:var(--bg);border:none;padding:.9rem 2.2rem;cursor:pointer;border-radius:var(--r);transition:opacity .2s}
+.btn-primary:hover{opacity:.86}
+.btn-ghost{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;background:transparent;color:var(--gold);border:.5px solid var(--gold-line);padding:.9rem 2.2rem;cursor:pointer;border-radius:var(--r);transition:all .2s}
+.btn-ghost:hover{border-color:var(--gold);background:var(--gold-dim)}
+
+/* ── GIFT BANNER ── */
+.gift-banner{background:linear-gradient(135deg,#0e0c28 0%,#1a1240 50%,#0e0c28 100%);border-top:.5px solid var(--gold-line);border-bottom:.5px solid var(--gold-line);padding:1.8rem 5%;text-align:center}
+.gift-inner{max-width:700px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:1.4rem;flex-wrap:wrap}
+.gift-icon{font-size:1.4rem;opacity:.7;flex-shrink:0}
+.gift-text{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:var(--ink);line-height:1.6}
+.gift-text strong{color:var(--gold);font-style:normal;font-weight:400}
+.gift-btn{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;background:transparent;color:var(--gold);border:.5px solid var(--gold-line);padding:.45rem 1rem;cursor:pointer;border-radius:var(--r);white-space:nowrap;transition:all .2s;flex-shrink:0}
+.gift-btn:hover{background:var(--gold-dim);border-color:var(--gold)}
+
+/* ── DIVIDER ── */
+.divider{display:flex;align-items:center;gap:1.5rem;padding:0 5%;margin:.4rem 0}
+.divider-line{flex:1;height:.5px;background:var(--gold-line)}
+.divider-glyph{font-family:'Cormorant Upright',serif;font-size:1rem;color:var(--gold);opacity:.5}
+
+/* ── SECTIONS ── */
+section{padding:4rem 5%}
+.section-eyebrow{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);opacity:.78;margin-bottom:.6rem;text-align:center}
+.section-title{font-family:'Cormorant Upright',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:300;color:var(--ink);text-align:center;margin-bottom:.5rem;line-height:1.15}
+.section-sub{text-align:center;color:var(--text-dim);font-size:.92rem;max-width:400px;margin:0 auto 3rem;line-height:1.75}
+
+/* ── PRODUCTS ── */
+.products-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:1px;background:var(--gold-line);max-width:1060px;margin:0 auto;border:.5px solid var(--gold-line)}
+.product-card{background:var(--bg2);padding:1.8rem 1.6rem 1.6rem;cursor:pointer;transition:background .25s;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.product-card::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;transition:opacity .3s}
+.product-card:hover{background:var(--bg3)}
+.product-card:hover::after{opacity:1}
+.product-card.featured{background:linear-gradient(140deg,#100d30 0%,var(--bg2) 100%)}
+.p-tag{display:inline-block;font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;padding:.2rem .6rem;border:.5px solid var(--gold-line);color:var(--gold);margin-bottom:.9rem;background:var(--gold-dim);border-radius:2px}
+.p-gift-tag{display:inline-block;font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.16em;text-transform:uppercase;padding:.2rem .6rem;border:.5px solid rgba(184,196,216,.25);color:var(--silver);margin-bottom:.9rem;background:rgba(184,196,216,.06);border-radius:2px;margin-left:.4rem}
+.p-icon{font-size:1.5rem;color:var(--gold);opacity:.62;margin-bottom:.9rem;display:block}
+.p-title{font-family:'Cormorant Upright',serif;font-size:1.3rem;font-weight:400;color:var(--ink);margin-bottom:.35rem;line-height:1.15}
+.p-tagline{font-size:.84rem;color:var(--text-dim);line-height:1.7;font-style:italic;flex:1;margin-bottom:1.2rem}
+.p-price-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.4rem;margin-bottom:.9rem}
+.p-price-usd{font-family:'Cinzel',serif;font-size:.95rem;color:var(--gold);letter-spacing:.05em}
+.p-price-ars{font-size:.76rem;color:var(--text-dim)}
+.p-badges{display:flex;gap:.4rem;align-items:center}
+.badge-stripe{background:#1a1840;border:.5px solid rgba(99,91,255,.3);color:#a09cf7;font-size:.56rem;font-family:'Cinzel',serif;letter-spacing:.1em;padding:.18rem .5rem;border-radius:2px}
+.badge-mp{background:#00284a;border:.5px solid rgba(0,158,227,.3);color:#5ec6f0;font-size:.56rem;font-family:'Cinzel',serif;letter-spacing:.1em;padding:.18rem .5rem;border-radius:2px}
+.p-cta{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;background:transparent;color:var(--gold);border:.5px solid var(--gold-line);padding:.55rem .9rem;cursor:pointer;border-radius:var(--r);transition:all .2s;width:100%}
+.p-cta:hover{background:var(--gold-dim);border-color:var(--gold)}
+
+/* ── COMBO ── */
+.combo-card{background:linear-gradient(135deg,#0e0c28 0%,#1a1030 100%);border:.5px solid rgba(201,168,76,.3);padding:1.8rem;max-width:1060px;margin:1px auto 0;text-align:center}
+.combo-soon{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--text-dim);font-size:.92rem}
+
+/* ── GIFT SECTION ── */
+.gift-section{background:var(--bg2);border-top:.5px solid var(--gold-line);border-bottom:.5px solid var(--gold-line)}
+.gift-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1px;background:var(--gold-line);max-width:860px;margin:0 auto;border:.5px solid var(--gold-line)}
+.gift-card{background:var(--bg2);padding:1.6rem 1.4rem;text-align:center}
+.gift-card-icon{font-size:1.6rem;margin-bottom:.8rem;display:block;opacity:.6}
+.gift-card-title{font-family:'Cormorant Upright',serif;font-size:1.1rem;color:var(--ink);margin-bottom:.4rem}
+.gift-card-text{font-size:.82rem;color:var(--text-dim);line-height:1.7;font-style:italic}
+
+/* ── ACORDEÓN ── */
+.accordion-wrap{max-width:760px;margin:0 auto}
+.acc-item{border-bottom:.5px solid var(--gold-line)}
+.acc-header{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 0;cursor:pointer;gap:1rem}
+.acc-title-wrap{display:flex;align-items:center;gap:.9rem}
+.acc-icon-sm{font-size:1rem;color:var(--gold);opacity:.58;flex-shrink:0}
+.acc-title{font-family:'Cormorant Upright',serif;font-size:1.15rem;color:var(--ink)}
+.acc-arrow{font-size:.85rem;color:var(--gold);opacity:.45;transition:transform .3s;flex-shrink:0}
+.acc-item.open .acc-arrow{transform:rotate(180deg)}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.acc-item.open .acc-body{max-height:700px}
+.acc-content{padding:0 0 1.4rem 2.4rem;color:var(--text);font-size:.9rem;line-height:1.85}
+.acc-content p{margin-bottom:.7rem}
+.acc-content ul{list-style:none;display:flex;flex-direction:column;gap:.3rem;margin-top:.5rem}
+.acc-content li{padding-left:1.1rem;position:relative;color:var(--text-dim);font-size:.86rem}
+.acc-content li::before{content:'·';position:absolute;left:0;color:var(--gold)}
+
+/* ── HOW ── */
+.how-section{background:var(--bg2);border-top:.5px solid var(--gold-line);border-bottom:.5px solid var(--gold-line)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));max-width:840px;margin:0 auto}
+.step{padding:1.6rem 1.1rem;text-align:center;position:relative}
+.step:not(:last-child)::after{content:'';position:absolute;right:0;top:20%;bottom:20%;width:.5px;background:var(--gold-line)}
+@media(max-width:580px){.step:not(:last-child)::after{display:none}.step{border-bottom:.5px solid var(--gold-line)}}
+.step-num{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.2em;color:var(--gold);opacity:.52;display:block;margin-bottom:.6rem}
+.step-title{font-family:'Cormorant Upright',serif;font-size:1.1rem;color:var(--ink);margin-bottom:.35rem}
+.step-text{font-size:.8rem;color:var(--text-dim);line-height:1.7}
+
+/* ── MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(4,5,18,.9);z-index:200;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s}
+@media(min-width:640px){.modal-overlay{align-items:center}}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{background:var(--bg2);border:.5px solid var(--gold-line);width:100%;max-width:560px;padding:2.2rem 1.8rem;position:relative;max-height:92vh;overflow-y:auto;border-radius:var(--r) var(--r) 0 0}
+@media(min-width:640px){.modal{border-radius:var(--r);max-height:88vh}}
+.modal-close{position:absolute;top:.9rem;right:1.1rem;background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:1.1rem;line-height:1;transition:color .2s;z-index:1}
+.modal-close:hover{color:var(--gold)}
+.m-eyebrow{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);opacity:.7;margin-bottom:.35rem}
+.m-title{font-family:'Cormorant Upright',serif;font-size:1.65rem;color:var(--ink);margin-bottom:.25rem}
+.m-price-row{display:flex;align-items:center;gap:.9rem;margin-bottom:1.3rem;flex-wrap:wrap}
+.m-price-usd{font-family:'Cinzel',serif;font-size:.95rem;color:var(--gold)}
+.m-price-ars{font-size:.82rem;color:var(--text-dim)}
+.m-desc{font-size:.9rem;color:var(--text);line-height:1.8;font-style:italic;border-left:1.5px solid var(--gold-line);padding-left:.9rem;margin-bottom:1.3rem}
+.m-label{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);opacity:.72;margin-bottom:.6rem;display:block}
+.m-includes{margin-bottom:1.3rem}
+.m-includes ul{list-style:none;display:flex;flex-direction:column;gap:.25rem}
+.m-includes li{font-size:.83rem;color:var(--text-dim);padding-left:1rem;position:relative;line-height:1.62}
+.m-includes li::before{content:'·';position:absolute;left:0;color:var(--gold)}
+
+/* gift toggle */
+.gift-toggle{display:flex;gap:.6rem;margin-bottom:1.1rem}
+.toggle-btn{flex:1;font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;padding:.5rem;border:.5px solid var(--gold-line);background:transparent;color:var(--text-dim);cursor:pointer;border-radius:var(--r);transition:all .2s}
+.toggle-btn.active{background:var(--gold-dim);border-color:var(--gold);color:var(--gold)}
+.gift-note{background:rgba(201,168,76,.06);border:.5px solid var(--gold-line);border-radius:var(--r);padding:.7rem .9rem;margin-bottom:1rem;font-size:.8rem;color:var(--text-dim);font-style:italic;line-height:1.65;display:none}
+.gift-note.visible{display:block}
+
+/* form */
+.form-group{margin-bottom:.9rem}
+.form-group label{display:block;font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-dim);margin-bottom:.35rem}
+.form-group input,.form-group select,.form-group textarea{width:100%;background:rgba(255,255,255,.04);border:.5px solid rgba(184,196,216,.13);color:var(--ink);padding:.65rem .85rem;font-family:'Cormorant Garamond',serif;font-size:.93rem;outline:none;transition:border-color .2s;border-radius:var(--r)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:rgba(201,168,76,.38)}
+.form-group textarea{resize:vertical;min-height:70px}
+.form-group select option{background:#0d1030}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+@media(max-width:400px){.form-row{grid-template-columns:1fr}}
+.form-separator{display:flex;align-items:center;gap:.8rem;margin:.6rem 0}
+.form-separator-line{flex:1;height:.5px;background:var(--gold-line)}
+.form-separator-text{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.2em;color:var(--text-dim)}
+
+/* payment */
+.pay-options{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:.9rem}
+.pay-option{border:.5px solid rgba(184,196,216,.13);padding:.85rem;cursor:pointer;border-radius:var(--r);transition:all .2s;display:flex;flex-direction:column;align-items:center;gap:.35rem;background:transparent}
+.pay-option:hover{border-color:rgba(201,168,76,.28);background:var(--gold-dim)}
+.pay-option.selected-stripe{border-color:rgba(99,91,255,.5);background:rgba(99,91,255,.07)}
+.pay-option.selected-mp{border-color:rgba(0,158,227,.5);background:rgba(0,158,227,.07)}
+.pay-name{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase}
+.pay-option.selected-stripe .pay-name{color:#a09cf7}
+.pay-option.selected-mp .pay-name{color:#5ec6f0}
+.pay-detail{font-size:.72rem;color:var(--text-dim)}
+.btn-submit{width:100%;font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;background:var(--gold);color:var(--bg);border:none;padding:.92rem;cursor:pointer;margin-top:.4rem;border-radius:var(--r);transition:opacity .2s}
+.btn-submit:hover{opacity:.87}
+.delivery-note{text-align:center;font-size:.72rem;color:var(--text-dim);margin-top:.6rem;letter-spacing:.04em}
+
+/* ── FOOTER ── */
+footer{padding:2.5rem 5%;border-top:.5px solid var(--gold-line)}
+.footer-main{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;margin-bottom:2rem}
+.footer-logo{font-family:'Cinzel',serif;font-size:.9rem;letter-spacing:.22em;color:var(--gold)}
+.footer-logo span{font-size:.52rem;display:block;letter-spacing:.28em;color:var(--text-dim);margin-top:2px;font-family:'Cormorant Garamond',serif;font-style:italic}
+.footer-links-group h4{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;color:var(--text-dim);margin-bottom:.7rem}
+.footer-links-group a{display:block;font-size:.78rem;color:var(--text-dim);text-decoration:none;margin-bottom:.35rem;transition:color .2s;font-style:italic}
+.footer-links-group a:hover{color:var(--gold)}
+.footer-bottom{border-top:.5px solid var(--gold-line);padding-top:1.2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem}
+.footer-copy{font-size:.68rem;color:var(--text-dim);letter-spacing:.05em}
+.footer-legal{display:flex;gap:1.5rem}
+.footer-legal a{font-size:.65rem;color:var(--text-dim);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;transition:color .2s}
+.footer-legal a:hover{color:var(--gold)}
+
+/* ── POLICY MODAL ── */
+.policy-modal{position:fixed;inset:0;background:rgba(4,5,18,.95);z-index:300;display:flex;align-items:center;justify-content:center;padding:2rem;opacity:0;pointer-events:none;transition:opacity .3s}
+.policy-modal.open{opacity:1;pointer-events:all}
+.policy-box{background:var(--bg2);border:.5px solid var(--gold-line);max-width:640px;width:100%;max-height:80vh;overflow-y:auto;padding:2.5rem;position:relative;border-radius:var(--r)}
+.policy-close{position:absolute;top:.9rem;right:1rem;background:none;border:none;color:var(--text-dim);cursor:pointer;font-size:1.1rem}
+.policy-close:hover{color:var(--gold)}
+.policy-box h2{font-family:'Cormorant Upright',serif;font-size:1.5rem;color:var(--ink);margin-bottom:1.2rem}
+.policy-box h3{font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin:1.2rem 0 .5rem;opacity:.82}
+.policy-box p{font-size:.88rem;color:var(--text);line-height:1.82;margin-bottom:.7rem}
+.policy-box a{color:var(--gold);text-decoration:none}
+
+/* ── COOKIE BANNER ── */
+.cookie-banner{position:fixed;bottom:0;left:0;right:0;background:rgba(13,16,48,.97);border-top:.5px solid var(--gold-line);padding:1rem 5%;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;z-index:250;transform:translateY(100%);transition:transform .4s}
+.cookie-banner.visible{transform:translateY(0)}
+.cookie-text{font-size:.8rem;color:var(--text-dim);line-height:1.6;max-width:600px}
+.cookie-text a{color:var(--gold);text-decoration:none}
+.cookie-actions{display:flex;gap:.6rem;flex-shrink:0}
+.cookie-accept{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;background:var(--gold);color:var(--bg);border:none;padding:.45rem 1rem;cursor:pointer;border-radius:var(--r)}
+.cookie-decline{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;background:transparent;color:var(--text-dim);border:.5px solid var(--gold-line);padding:.45rem 1rem;cursor:pointer;border-radius:var(--r)}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">Celestes<span>lecturas astrológicas</span></div>
+  <ul class="nav-links">
+    <li><a href="#productos">Lecturas</a></li>
+    <li><a href="#regalos">Regalos</a></li>
+    <li><a href="#detalle">Qué incluyen</a></li>
+    <li><a href="#como">Cómo funciona</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('productos').scrollIntoView({behavior:'smooth'})">Pedir ahora</button>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <canvas id="stars"></canvas>
+  <div class="hero-inner">
+    <p class="eyebrow">Astrología de profundidad · Entrega en 24 horas</p>
+    <h1>El cielo guardó<br>tu información<br><em>más auténtica</em></h1>
+    <p class="hero-sub">Lecturas astrológicas personalizadas elaboradas con cuidado y profundidad. Para conocerte, para tus hij@s, para tus vínculos y para cada ciclo de tu año.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="document.getElementById('productos').scrollIntoView({behavior:'smooth'})">Ver lecturas</button>
+      <button class="btn-ghost" onclick="document.getElementById('regalos').scrollIntoView({behavior:'smooth'})">✦ Regalos de cumpleaños</button>
+    </div>
+  </div>
+</section>
+
+<!-- ── GIFT BANNER ── -->
+<div class="gift-banner">
+  <div class="gift-inner">
+    <span class="gift-icon">✦</span>
+    <p class="gift-text">Una lectura astrológica es el regalo que <strong>nadie olvida</strong> — porque habla de quien es, no de lo que tiene.</p>
+    <button class="gift-btn" onclick="document.getElementById('regalos').scrollIntoView({behavior:'smooth'})">Ver opciones de regalo</button>
+  </div>
+</div>
+
+<div class="divider"><div class="divider-line"></div><span class="divider-glyph">☽</span><div class="divider-line"></div></div>
+
+<!-- ── PRODUCTOS ── -->
+<section id="productos" style="padding:4rem 5%">
+  <p class="section-eyebrow">Lecturas disponibles</p>
+  <h2 class="section-title">Elegí tu lectura</h2>
+  <p class="section-sub">Cada informe se elabora con tus datos exactos de nacimiento y se entrega en menos de 24 horas.</p>
+
+  <div class="products-grid">
+
+    <div class="product-card featured" onclick="openModal('natal-adultos')">
+      <div><span class="p-tag">Más solicitada</span><span class="p-gift-tag">✦ regalo</span></div>
+      <span class="p-icon">☉</span>
+      <h3 class="p-title">Carta Natal · Adultos</h3>
+      <p class="p-tagline">Tu mapa de vida completo. Arquetipos, potenciales y el camino que el alma vino a recorrer. Perspectiva junguiana y evolutiva.</p>
+      <div class="p-price-row">
+        <div><div class="p-price-usd">USD 50</div><div class="p-price-ars" id="ars-natal-adultos"></div></div>
+        <div class="p-badges"><span class="badge-stripe">Stripe</span><span class="badge-mp">MP</span></div>
+      </div>
+      <button class="p-cta">Solicitar lectura →</button>
+    </div>
+
+    <div class="product-card" onclick="openModal('natal-ninos')">
+      <div><span class="p-gift-tag">✦ regalo ideal</span></div>
+      <span class="p-icon">☾</span>
+      <h3 class="p-title">Carta Natal · Niños</h3>
+      <p class="p-tagline">Para padres que quieren conocer y acompañar los talentos únicos de sus hij@s. El regalo más significativo que podés hacerle a una familia.</p>
+      <div class="p-price-row">
+        <div><div class="p-price-usd">USD 35</div><div class="p-price-ars" id="ars-natal-ninos"></div></div>
+        <div class="p-badges"><span class="badge-stripe">Stripe</span><span class="badge-mp">MP</span></div>
+      </div>
+      <button class="p-cta">Solicitar lectura →</button>
+    </div>
+
+    <div class="product-card" onclick="openModal('revolucion')">
+      <span class="p-icon">♄</span>
+      <h3 class="p-title">Revolución Solar</h3>
+      <p class="p-tagline">El mapa de tu año personal. Qué temas activa el cielo en tu cumpleaños, las ventanas de oportunidad y tu agenda astrológica del ciclo.</p>
+      <div class="p-price-row">
+        <div><div class="p-price-usd">USD 50</div><div class="p-price-ars" id="ars-revolucion"></div></div>
+        <div class="p-badges"><span class="badge-stripe">Stripe</span><span class="badge-mp">MP</span></div>
+      </div>
+      <button class="p-cta">Solicitar lectura →</button>
+    </div>
+
+    <div class="product-card" onclick="openModal('armonicos')">
+      <span class="p-icon">♃</span>
+      <h3 class="p-title">Carta de Armónicos</h3>
+      <p class="p-tagline">La frecuencia fundamental de tu psique. Una grilla de 12 cuerpos celestes revela los arquetipos profundos que operan por debajo de la carta natal.</p>
+      <div class="p-price-row">
+        <div><div class="p-price-usd">USD 40</div><div class="p-price-ars" id="ars-armonicos"></div></div>
+        <div class="p-badges"><span class="badge-stripe">Stripe</span><span class="badge-mp">MP</span></div>
+      </div>
+      <button class="p-cta">Solicitar lectura →</button>
+    </div>
+
+    <div class="product-card" onclick="openModal('guia-lunar')">
+      <span class="p-icon">☽</span>
+      <h3 class="p-title">Guía Lunar Mensual</h3>
+      <p class="p-tagline">Las lunaciones del mes en relación a tu carta natal. Cuándo sembrar, cuándo soltar, cuándo actuar. Tu calendario interior personalizado.</p>
+      <div class="p-price-row">
+        <div><div class="p-price-usd">USD 25</div><div class="p-price-ars" id="ars-guia-lunar"></div></div>
+        <div class="p-badges"><span class="badge-stripe">Stripe</span><span class="badge-mp">MP</span></div>
+      </div>
+      <button class="p-cta">Solicitar lectura →</button>
+    </div>
+
+    <div class="product-card" onclick="openModal('encuentro')">
+      <div><span class="p-gift-tag">✦ regalo para dos</span></div>
+      <span class="p-icon">♀</span>
+      <h3 class="p-title">El Mapa del Encuentro</h3>
+      <p class="p-tagline">Sinastría + carta composite. Para parejas, socios, amistades o vínculos familiares. Qué activa el otro en vos y qué crean juntos en el mundo.</p>
+      <div class="p-price-row">
+        <div><div class="p-price-usd">USD —</div><div class="p-price-ars">Próximamente</div></div>
+        <div class="p-badges"><span class="badge-stripe">Stripe</span><span class="badge-mp">MP</span></div>
+      </div>
+      <button class="p-cta">Anotarme →</button>
+    </div>
+
+  </div>
+
+  <div class="combo-card">
+    <span class="p-icon" style="font-size:1.3rem;display:block;margin-bottom:.6rem">✦</span>
+    <h3 style="font-family:'Cormorant Upright',serif;font-size:1.3rem;color:var(--ink);margin-bottom:.4rem">Combos · Próximamente</h3>
+    <p class="combo-soon">Guía Lunar anual (12 meses) y combinaciones de lecturas a precio especial. <span style="color:var(--gold);cursor:pointer" onclick="openModal('combo-waitlist')">Anotate para el anuncio →</span></p>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><span class="divider-glyph">✦</span><div class="divider-line"></div></div>
+
+<!-- ── REGALOS ── -->
+<section id="regalos" class="gift-section">
+  <p class="section-eyebrow">Regalos que dejan huella</p>
+  <h2 class="section-title">El regalo que habla<br>de quién es</h2>
+  <p class="section-sub">Una lectura astrológica no se olvida. Porque no habla de lo que tiene —habla de lo que es.</p>
+
+  <div class="gift-cards">
+    <div class="gift-card">
+      <span class="gift-card-icon">🎂</span>
+      <h3 class="gift-card-title">Cumpleaños</h3>
+      <p class="gift-card-text">La Carta Natal o la Revolución Solar son el regalo de cumpleaños más personal que existe. El cielo del día que nació, solo para esa persona.</p>
+    </div>
+    <div class="gift-card">
+      <span class="gift-card-icon">✦</span>
+      <h3 class="gift-card-title">Para padres</h3>
+      <p class="gift-card-text">Regalarle a una mamá o papá la Carta Natal de su hij@ es darles una guía para acompañar mejor. El regalo que beneficia a toda la familia.</p>
+    </div>
+    <div class="gift-card">
+      <span class="gift-card-icon">☽</span>
+      <h3 class="gift-card-title">Para una pareja</h3>
+      <p class="gift-card-text">El Mapa del Encuentro como regalo para dos. Para un aniversario, para una decisión importante, para conocer la profundidad del vínculo.</p>
+    </div>
+    <div class="gift-card">
+      <span class="gift-card-icon">◇</span>
+      <h3 class="gift-card-title">Sin fecha exacta</h3>
+      <p class="gift-card-text">Si no sabés la hora de nacimiento de quien querés regalar, contactanos — hay lecturas que pueden hacerse igualmente con los datos disponibles.</p>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:2rem">
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--text-dim);font-size:.92rem;margin-bottom:1rem">¿Querés regalar una lectura? Elegí el producto, completá los datos del homenajeado/a y dejanos el tuyo para coordinar la entrega.</p>
+    <button class="btn-ghost" onclick="document.getElementById('productos').scrollIntoView({behavior:'smooth'})">Ver todas las lecturas</button>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><span class="divider-glyph">☿</span><div class="divider-line"></div></div>
+
+<!-- ── ACORDEÓN ── -->
+<section id="detalle" style="background:var(--bg2);border-top:.5px solid var(--gold-line);border-bottom:.5px solid var(--gold-line)">
+  <p class="section-eyebrow">Detalle de cada lectura</p>
+  <h2 class="section-title">¿Qué incluye cada informe?</h2>
+  <p class="section-sub">Todo lo que vas a recibir, explicado con claridad.</p>
+  <div class="accordion-wrap">
+
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <div class="acc-title-wrap"><span class="acc-icon-sm">☉</span><span class="acc-title">Carta Natal · Adultos — USD 50</span></div>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body"><div class="acc-content">
+        <p>Lectura profunda de tu psique, arquetipos y camino de vida desde perspectiva junguiana y evolutiva. Un documento visual único que podés consultar durante años.</p>
+        <ul><li>Ascendente, Sol y Luna: el triángulo de identidad completo</li><li>Arquetipos jungianos específicos de tu carta</li><li>Eje nodal: de dónde venís y hacia dónde crece esta vida</li><li>Quirón, Lilith y planetas retrógrados (según Schulman)</li><li>Aspectos más exactos y su lectura evolutiva</li><li>Colofón de síntesis con frase-faro personalizada</li><li>Documento HTML interactivo</li></ul>
+      </div></div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <div class="acc-title-wrap"><span class="acc-icon-sm">☾</span><span class="acc-title">Carta Natal · Niños — USD 35</span></div>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body"><div class="acc-content">
+        <p>Para padres que quieren acompañar mejor a sus hij@s. En lenguaje accesible, con una sección específica de orientación parental concreta.</p>
+        <ul><li>Necesidades emocionales y talentos naturales</li><li>Cómo aprende, cómo siente, cómo se vincula</li><li>Quirón: el área que pide más cuidado y paciencia</li><li>Nodo Norte: la dirección evolutiva del alma</li><li>Sección para padres: orientaciones prácticas por etapa</li><li>Cierre en carta directa al niño/a</li><li>Documento HTML descargable</li></ul>
+      </div></div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <div class="acc-title-wrap"><span class="acc-icon-sm">♄</span><span class="acc-title">Revolución Solar — USD 50</span></div>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body"><div class="acc-content">
+        <p>El mapa de tu año personal. Combina la carta de revolución solar con los tránsitos planetarios del ciclo para darte una agenda real de aprovechamiento.</p>
+        <ul><li>Ascendente y Luna de la RS: el tono y la emoción del año</li><li>Las casas activas: dónde ocurre todo este ciclo</li><li>Júpiter y Saturno: dónde crece y dónde se consolida</li><li>Tránsitos transpersonales: contexto colectivo + impacto personal</li><li>Agenda cronológica del año: ventanas de acción, revisión y decisión</li><li>Colofón con frase-faro del ciclo</li></ul>
+      </div></div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <div class="acc-title-wrap"><span class="acc-icon-sm">♃</span><span class="acc-title">Carta de Armónicos — USD 40</span></div>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body"><div class="acc-content">
+        <p>El espectro vibracional de tu carta. Para quien quiere ir más profundo: los arquetipos que operan por debajo de lo visible y las conexiones ocultas entre planetas.</p>
+        <ul><li>Armónico dominante y su arquetipo junguiano</li><li>Jerarquía completa del espectro (A1 a A12)</li><li>Las conjunciones ocultas: planetas que en la carta natal no se tocan pero que en un armónico aparecen fundidos</li><li>Lectura alquímica de las combinaciones de arquetipos</li><li>Conexión con el momento de vida actual</li><li>Documento HTML con visualización del espectro</li></ul>
+      </div></div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <div class="acc-title-wrap"><span class="acc-icon-sm">☽</span><span class="acc-title">Guía Lunar Mensual — USD 25</span></div>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body"><div class="acc-content">
+        <p>Las lunaciones del mes en relación directa con tu carta natal. Con fechas concretas, activaciones partiles y recomendaciones de acción. Disponible como consulta mensual o combo anual.</p>
+        <ul><li>Luna Nueva: qué sembrar y en qué área de vida</li><li>Luna Llena: qué ilumina, qué pide ser soltado</li><li>Activaciones partiles (≤ 2° de orbe): los hallazgos más precisos del mes</li><li>Tránsitos planetarios relevantes con fechas</li><li>Agenda cronológica del mes: siembra · acción · cosecha · revisión</li><li>Prácticas lunares sugeridas</li></ul>
+      </div></div>
+    </div>
+
+    <div class="acc-item">
+      <div class="acc-header" onclick="toggleAcc(this)">
+        <div class="acc-title-wrap"><span class="acc-icon-sm">♀</span><span class="acc-title">El Mapa del Encuentro — precio próximamente</span></div>
+        <span class="acc-arrow">▾</span>
+      </div>
+      <div class="acc-body"><div class="acc-content">
+        <p>Sinastría + carta composite. Para cualquier tipo de vínculo: parejas, socios, amistades profundas, vínculos familiares entre adultos.</p>
+        <ul><li>Sinastría: lo que cada uno activa en el otro</li><li>Los aspectos más exactos del encuentro y su lectura</li><li>Las tensiones formativas y los dones del vínculo</li><li>Carta composite: el vínculo como entidad propia</li><li>Propósito del vínculo: qué vienen a crear juntos</li><li>Eje nodal composite: la dirección evolutiva del encuentro</li><li>Documento HTML dual e interactivo</li></ul>
+      </div></div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><span class="divider-glyph">☽</span><div class="divider-line"></div></div>
+
+<!-- ── CÓMO FUNCIONA ── -->
+<section id="como" class="how-section">
+  <p class="section-eyebrow">El proceso</p>
+  <h2 class="section-title">Simple y cuidado</h2>
+  <div class="steps">
+    <div class="step"><span class="step-num">01</span><h3 class="step-title">Elegís tu lectura</h3><p class="step-text">Seleccionás el producto y completás los datos de nacimiento con precisión.</p></div>
+    <div class="step"><span class="step-num">02</span><h3 class="step-title">Elegís cómo pagar</h3><p class="step-text">Stripe en USD con tarjeta internacional, o Mercado Pago en ARS.</p></div>
+    <div class="step"><span class="step-num">03</span><h3 class="step-title">Recibís en 24 hs</h3><p class="step-text">Tu lectura llega por email como documento HTML interactivo y navegable.</p></div>
+    <div class="step"><span class="step-num">04</span><h3 class="step-title">Explorás tu mapa</h3><p class="step-text">Un documento que podés releer cuando quieras. Tuyo para siempre.</p></div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-main">
+    <div>
+      <div class="footer-logo">Celestes<span>lecturas astrológicas de autor</span></div>
+    </div>
+    <div class="footer-links-group">
+      <h4>Lecturas</h4>
+      <a onclick="openModal('natal-adultos')">Carta Natal · Adultos</a>
+      <a onclick="openModal('natal-ninos')">Carta Natal · Niños</a>
+      <a onclick="openModal('revolucion')">Revolución Solar</a>
+      <a onclick="openModal('armonicos')">Carta de Armónicos</a>
+      <a onclick="openModal('guia-lunar')">Guía Lunar</a>
+      <a onclick="openModal('encuentro')">El Mapa del Encuentro</a>
+    </div>
+    <div class="footer-links-group">
+      <h4>Contacto</h4>
+      <a href="mailto:hola@celestes.ar">hola@celestes.ar</a>
+      <a href="https://instagram.com/celestes.ar" target="_blank">@celestes.ar</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 Celestes · Lecturas astrológicas de autor</span>
+    <div class="footer-legal">
+      <a onclick="openPolicy('privacidad')">Privacidad</a>
+      <a onclick="openPolicy('terminos')">Términos</a>
+      <a onclick="openPolicy('cookies')">Cookies</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ── MODAL PRODUCTOS ── -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="modal-box"></div>
+</div>
+
+<!-- ── MODAL POLÍTICAS ── -->
+<div class="policy-modal" id="policy-modal" onclick="closePolicyOutside(event)">
+  <div class="policy-box" id="policy-box">
+    <button class="policy-close" onclick="closePolicy()">✕</button>
+    <div id="policy-content"></div>
+  </div>
+</div>
+
+<!-- ── COOKIE BANNER ── -->
+<div class="cookie-banner" id="cookie-banner">
+  <p class="cookie-text">Usamos cookies técnicas para que el sitio funcione correctamente. No usamos cookies de rastreo ni publicidad. <a onclick="openPolicy('cookies')" style="cursor:pointer">Más información</a></p>
+  <div class="cookie-actions">
+    <button class="cookie-decline" onclick="dismissCookies()">Solo necesarias</button>
+    <button class="cookie-accept" onclick="acceptCookies()">Aceptar</button>
+  </div>
+</div>
+
+<script>
+/* ── TIPOS DE CAMBIO ── */
+const USD={
+  'natal-adultos':50,'natal-ninos':35,'revolucion':50,
+  'armonicos':40,'guia-lunar':25,'encuentro':null
+};
+const ARS_RATE=1200;
+Object.entries(USD).forEach(([k,v])=>{
+  const el=document.getElementById('ars-'+k);
+  if(el&&v) el.textContent='ARS '+Math.round(v*ARS_RATE).toLocaleString('es-AR');
+});
+
+/* ── PRODUCTOS ── */
+const products={
+  'natal-adultos':{
+    title:'Carta Natal · Adultos',usd:50,
+    desc:'Tu mapa de vida completo. Arquetipos, potenciales y el camino que el alma vino a recorrer, desde perspectiva junguiana y evolutiva.',
+    includes:['Ascendente, Sol y Luna: el triángulo de identidad','Arquetipos jungianos de tu carta','Eje nodal: inercia y dirección evolutiva','Quirón, Lilith y retrógrados','Colofón de síntesis con frase-faro','Documento HTML interactivo'],
+    fields:'personal', gift:true
+  },
+  'natal-ninos':{
+    title:'Carta Natal · Niños',usd:35,
+    desc:'Para padres que quieren conocer y acompañar los talentos únicos de sus hij@s. Con orientaciones prácticas de crianza.',
+    includes:['Necesidades emocionales y talentos naturales','Quirón: el área de mayor cuidado','Nodo Norte: la dirección del alma','Sección de orientación parental concreta','Carta directa al niño/a','Documento HTML descargable'],
+    fields:'nino', gift:true
+  },
+  'revolucion':{
+    title:'Revolución Solar',usd:50,
+    desc:'El mapa de tu año personal. Combina la carta de revolución solar con los tránsitos del ciclo y una agenda real de aprovechamiento.',
+    includes:['Tono y emoción del año','Casas activas del ciclo','Júpiter y Saturno: expansión y consolidación','Tránsitos transpersonales: contexto + impacto','Agenda cronológica del año con ventanas de acción','Frase-faro del ciclo'],
+    fields:'revolucion', gift:false
+  },
+  'armonicos':{
+    title:'Carta de Armónicos',usd:40,
+    desc:'El espectro vibracional de tu carta. Los arquetipos profundos y las conexiones ocultas entre planetas que la carta natal no muestra.',
+    includes:['Armónico dominante y su arquetipo junguiano','Jerarquía completa del espectro A1–A12','Las conjunciones ocultas entre planetas','Lectura alquímica de las combinaciones','Conexión con el momento de vida actual','Visualización del espectro en HTML'],
+    fields:'personal', gift:true
+  },
+  'guia-lunar':{
+    title:'Guía Lunar Mensual',usd:25,
+    desc:'Las lunaciones del mes en relación a tu carta natal. Con fechas concretas, activaciones partiles y agenda de acción.',
+    includes:['Luna Nueva: área de vida activada y siembra','Luna Llena: culminación y liberación','Activaciones partiles (orbe ≤ 2°)','Tránsitos del mes con fechas','Agenda cronológica del ciclo lunar','Prácticas lunares sugeridas'],
+    fields:'lunar', gift:false
+  },
+  'encuentro':{
+    title:'El Mapa del Encuentro',usd:null,
+    desc:'Sinastría + carta composite. Para parejas, socios, amistades o vínculos familiares. Qué crea el encuentro que ninguno de los dos crearía solo.',
+    includes:['Sinastría: lo que cada uno activa en el otro','Aspectos más exactos del encuentro','Tensiones formativas y dones del vínculo','Carta composite: el vínculo como entidad','Propósito y dirección evolutiva del encuentro','Documento HTML dual'],
+    fields:'waitlist', gift:true
+  },
+  'combo-waitlist':{
+    title:'Combos · Lista de espera',usd:null,
+    desc:'Guía Lunar anual y combinaciones especiales de lecturas a precio especial. Dejanos tu email para el anuncio.',
+    includes:[],fields:'waitlist',gift:false
+  }
+};
+
+let selectedPayment='';
+let isGift=false;
+
+function buildForm(id){
+  const p=products[id];
+  const f=p.fields;
+  let h='';
+  const inp=(id,label,type='text',ph='',extra='')=>
+    `<div class="form-group"><label>${label}</label><input type="${type}" id="f-${id}" placeholder="${ph}" ${extra}></div>`;
+  const row=(a,b)=>`<div class="form-row">${a}${b}</div>`;
+
+  if(f==='personal'||f==='revolucion'||f==='armonicos'){
+    h+=inp('nombre','Nombre completo','text','Tu nombre');
+    h+=row(inp('fecha','Fecha de nacimiento','date'),inp('hora','Hora de nacimiento','time'));
+    h+=row(inp('pais','País de nacimiento','text','Argentina'),inp('ciudad','Ciudad / Provincia','text',''));
+    if(f==='revolucion'){
+      h+=`<div class="form-separator"><div class="form-separator-line"></div><span class="form-separator-text">Datos adicionales para la RS</span><div class="form-separator-line"></div></div>`;
+      h+=row(inp('mes-rs','Mes de tu cumpleaños','month'),inp('ciudad-rs','Ciudad donde estarás ese mes','text',''));
+    }
+  }
+  if(f==='nino'){
+    h+=inp('nino-nombre','Nombre del niño/a','text','Nombre');
+    h+=row(inp('nino-fecha','Fecha de nacimiento','date'),inp('nino-hora','Hora de nacimiento','time'));
+    h+=row(inp('nino-pais','País de nacimiento','text','Argentina'),inp('nino-ciudad','Ciudad / Provincia','text',''));
+    h+=`<div class="form-separator"><div class="form-separator-line"></div><span class="form-separator-text">Tu información</span><div class="form-separator-line"></div></div>`;
+    h+=inp('padre-nombre','Tu nombre (mamá / papá)','text','Tu nombre');
+  }
+  if(f==='lunar'){
+    h+=inp('nombre','Nombre completo','text','Tu nombre');
+    h+=row(inp('fecha','Fecha de nacimiento','date'),inp('hora','Hora de nacimiento','time'));
+    h+=row(inp('pais','País natal','text','Argentina'),inp('ciudad','Ciudad natal','text',''));
+    h+=`<div class="form-separator"><div class="form-separator-line"></div><span class="form-separator-text">Datos del mes a consultar</span><div class="form-separator-line"></div></div>`;
+    h+=row(inp('mes-lunar','Mes y año a consultar','month'),inp('ciudad-lunar','Ciudad donde estarás ese mes','text','ej: Madrid, Roma...'));
+    h+=`<div class="form-group"><label>¿Viajás durante ese mes?</label><input type="text" id="f-viaje" placeholder="Si cambiás de ciudad, indicá cuándo y a dónde (opcional)"></div>`;
+  }
+  if(f==='waitlist'){
+    h+=inp('wl-nombre','Tu nombre','text','Nombre');
+  }
+
+  // gift fields
+  if(isGift&&p.gift&&f!=='waitlist'){
+    h+=`<div class="form-separator"><div class="form-separator-line"></div><span class="form-separator-text">Es un regalo — datos del homenajeado/a</span><div class="form-separator-line"></div></div>`;
+    h+=inp('gift-nombre','Nombre de quien recibe el regalo','text','Nombre');
+    h+=`<div class="form-group"><label>¿Cuándo es su cumpleaños o la ocasión?</label><input type="text" id="f-gift-ocasion" placeholder="ej: 15 de mayo, aniversario..."></div>`;
+    h+=`<div class="form-group"><label>¿Querés agregar una dedicatoria? (opcional)</label><textarea id="f-gift-dedica" placeholder="Una frase tuya para incluir en el documento..."></textarea></div>`;
+  }
+
+  h+=inp('email','Email donde recibir la lectura','email','tu@email.com');
+  return h;
+}
+
+function openModal(id){
+  const p=products[id];
+  isGift=false;
+  selectedPayment='';
+  const arsPrice=p.usd?'ARS '+Math.round(p.usd*ARS_RATE).toLocaleString('es-AR'):'';
+
+  let giftToggleHtml='';
+  if(p.gift&&p.usd){
+    giftToggleHtml=`
+      <div class="gift-toggle">
+        <button class="toggle-btn active" id="toggle-para-mi" onclick="setGift(false,'${id}')">Para mí</button>
+        <button class="toggle-btn" id="toggle-regalo" onclick="setGift(true,'${id}')">✦ Es un regalo</button>
+      </div>
+      <div class="gift-note" id="gift-note">La lectura llegará a tu email. Vos la reenviás o la imprimís para quien querés homenajear — o nos decís y coordinamos la entrega directa.</div>`;
+  }
+
+  let payHtml=p.usd?`
+    <span class="m-label">Elegí cómo pagar</span>
+    <div class="pay-options">
+      <div class="pay-option" id="opt-stripe" onclick="selectPay('stripe')">
+        <span class="pay-name" style="color:#a09cf7">Stripe</span>
+        <span class="pay-detail">USD ${p.usd} · tarjeta internacional</span>
+      </div>
+      <div class="pay-option" id="opt-mp" onclick="selectPay('mp')">
+        <span class="pay-name" style="color:#5ec6f0">Mercado Pago</span>
+        <span class="pay-detail">${arsPrice} · tarjeta / transferencia</span>
+      </div>
+    </div>`:'';
+
+  document.getElementById('modal-box').innerHTML=`
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <p class="m-eyebrow">Lectura astrológica · Celestes</p>
+    <h2 class="m-title">${p.title}</h2>
+    <div class="m-price-row">
+      ${p.usd?`<span class="m-price-usd">USD ${p.usd}</span><span class="m-price-ars">${arsPrice}</span>`:`<span class="m-price-ars" style="color:var(--text-dim);font-style:italic">Precio próximamente</span>`}
+    </div>
+    <p class="m-desc">${p.desc}</p>
+    ${p.includes.length?`<div class="m-includes"><span class="m-label">Incluye</span><ul>${p.includes.map(i=>`<li>${i}</li>`).join('')}</ul></div>`:''}
+    ${giftToggleHtml}
+    <span class="m-label" style="margin-top:1rem">Tus datos</span>
+    <div id="m-form">${buildForm(id)}</div>
+    <div class="payment-section" id="pay-section">${payHtml}</div>
+    <button class="btn-submit" onclick="handleSubmit('${id}')">${p.usd?'Continuar al pago →':'Anotarme →'}</button>
+    <p class="delivery-note">Entrega en 24 horas · Pago seguro · Documento HTML personalizado</p>
+  `;
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function setGift(val,id){
+  isGift=val;
+  document.getElementById('toggle-para-mi').className='toggle-btn'+(val?'':' active');
+  document.getElementById('toggle-regalo').className='toggle-btn'+(val?' active':'');
+  const note=document.getElementById('gift-note');
+  if(note) note.className='gift-note'+(val?' visible':'');
+  document.getElementById('m-form').innerHTML=buildForm(id);
+}
+
+function selectPay(method){
+  selectedPayment=method;
+  const s=document.getElementById('opt-stripe');
+  const m=document.getElementById('opt-mp');
+  if(s) s.className='pay-option'+(method==='stripe'?' selected-stripe':'');
+  if(m) m.className='pay-option'+(method==='mp'?' selected-mp':'');
+}
+
+function handleSubmit(id){
+  const p=products[id];
+  const emailEl=document.getElementById('f-email')||document.getElementById('f-wl-email');
+  if(emailEl&&!emailEl.value.trim()){
+    emailEl.style.borderColor='rgba(220,80,60,.4)';
+    emailEl.focus();return;
+  }
+  if(p.usd&&!selectedPayment){
+    const ps=document.getElementById('pay-section');
+    if(ps) ps.style.outline='1px solid rgba(220,80,60,.25)';
+    return;
+  }
+  // → aquí irá el redirect a Stripe o Mercado Pago
+  document.getElementById('modal-box').innerHTML=`
+    <div style="text-align:center;padding:2.5rem 1rem">
+      <div style="font-family:'Cormorant Upright',serif;font-size:2.2rem;color:var(--gold);margin-bottom:1rem">✦</div>
+      <h3 style="font-family:'Cormorant Upright',serif;font-size:1.55rem;color:var(--ink);margin-bottom:.7rem">${id.includes('waitlist')||id==='encuentro'?'¡Anotado/a!':'Solicitud recibida'}</h3>
+      <p style="color:var(--text-dim);font-size:.88rem;line-height:1.8;margin-bottom:1.6rem">${id.includes('waitlist')||id==='encuentro'?'Te avisamos en cuanto esté disponible.':'Recibirás la confirmación en tu email.<br>Tu lectura estará lista en las próximas 24 horas.'}</p>
+      <button onclick="closeModal()" style="font-family:'Cinzel',serif;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;background:var(--gold);color:var(--bg);border:none;padding:.82rem 2rem;cursor:pointer;border-radius:4px">Cerrar</button>
+    </div>`;
+}
+
+function closeModal(){
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function closeModalOutside(e){if(e.target===document.getElementById('modal-overlay'))closeModal();}
+
+/* ── ACORDEÓN ── */
+function toggleAcc(header){
+  const item=header.parentElement;
+  const isOpen=item.classList.contains('open');
+  document.querySelectorAll('.acc-item.open').forEach(i=>i.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
+
+/* ── POLÍTICAS ── */
+const policies={
+  privacidad:{
+    title:'Política de Privacidad',
+    content:`
+      <h3>Responsable del tratamiento</h3>
+      <p>Celestes · Lecturas Astrológicas de Autor. Contacto: hola@celestes.ar</p>
+      <h3>Datos que recopilamos</h3>
+      <p>Recopilamos únicamente los datos que vos nos proporcionás para elaborar tu lectura: nombre, fecha, hora y lugar de nacimiento, y email de contacto. No recopilamos datos de navegación, no usamos cookies de rastreo, no compartimos tu información con terceros.</p>
+      <h3>Finalidad del tratamiento</h3>
+      <p>Los datos se usan exclusivamente para elaborar y entregar la lectura astrológica solicitada. No serán usados con fines comerciales ni compartidos con ningún tercero salvo los procesadores de pago (Stripe / Mercado Pago) en lo necesario para completar la transacción.</p>
+      <h3>Conservación de datos</h3>
+      <p>Los datos de nacimiento se conservan el tiempo necesario para elaborar la lectura. El email se conserva para posibles consultas o reenvíos del documento. Podés solicitar su eliminación en cualquier momento escribiendo a hola@celestes.ar.</p>
+      <h3>Tus derechos</h3>
+      <p>Tenés derecho a acceder, rectificar, eliminar y oponerte al tratamiento de tus datos. Para ejercerlos, escribí a hola@celestes.ar.</p>
+      <h3>Procesadores de pago</h3>
+      <p>Los pagos son procesados por Stripe (stripe.com) y Mercado Pago (mercadopago.com). Celestes no almacena datos de tarjetas ni información bancaria. Consultá las políticas de privacidad de cada procesador para más información.</p>`
+  },
+  terminos:{
+    title:'Términos y Condiciones',
+    content:`
+      <h3>Naturaleza del servicio</h3>
+      <p>Celestes ofrece lecturas astrológicas personalizadas con fines de autoconocimiento y desarrollo personal. Las lecturas no constituyen asesoramiento médico, psicológico, legal ni financiero. Son interpretaciones astrológicas elaboradas con criterio profesional y perspectiva evolutiva.</p>
+      <h3>Proceso de compra</h3>
+      <p>Al completar el formulario y realizar el pago, el cliente acepta estos términos. La lectura se elabora en un plazo máximo de 24 horas hábiles y se entrega al email indicado como documento HTML.</p>
+      <h3>Precisión de los datos</h3>
+      <p>La calidad de la lectura depende de la precisión de los datos de nacimiento. Celestes no se responsabiliza por interpretaciones basadas en datos incorrectos proporcionados por el cliente.</p>
+      <h3>Política de devoluciones</h3>
+      <p>Por la naturaleza personalizada del servicio, una vez elaborada la lectura no se realizan devoluciones. Si hay un problema con la entrega o el documento, contactanos a hola@celestes.ar y lo resolveremos.</p>
+      <h3>Propiedad intelectual</h3>
+      <p>Las lecturas son documentos elaborados por Celestes y de uso personal del cliente. No pueden reproducirse, redistribuirse ni comercializarse sin autorización expresa.</p>
+      <h3>Disclaimer astrológico</h3>
+      <p>La astrología es un sistema simbólico de autoconocimiento. Las lecturas describen potenciales y patrones, no determinismos. Nada en una lectura de Celestes debe interpretarse como predicción infalible, diagnóstico o consejo profesional en ningún ámbito.</p>`
+  },
+  cookies:{
+    title:'Política de Cookies',
+    content:`
+      <h3>¿Qué son las cookies?</h3>
+      <p>Las cookies son pequeños archivos que los sitios web guardan en tu dispositivo para recordar preferencias o información de sesión.</p>
+      <h3>Cookies que usamos</h3>
+      <p>Celestes usa únicamente cookies técnicas necesarias para el funcionamiento del sitio — por ejemplo, recordar si ya aceptaste esta política. <strong>No usamos cookies de rastreo, publicidad, análisis de comportamiento ni redes de terceros.</strong></p>
+      <h3>Cookies de terceros</h3>
+      <p>Los procesadores de pago (Stripe y Mercado Pago) pueden establecer sus propias cookies cuando procesás un pago. Consultá sus políticas para más información.</p>
+      <h3>Cómo gestionarlas</h3>
+      <p>Podés configurar tu navegador para rechazar o eliminar cookies. Esto puede afectar el funcionamiento del sitio en algunos casos menores. Consultá la ayuda de tu navegador para instrucciones.</p>
+      <h3>Contacto</h3>
+      <p>Para cualquier consulta sobre cookies: <a href="mailto:hola@celestes.ar">hola@celestes.ar</a></p>`
+  }
+};
+
+function openPolicy(key){
+  const pol=policies[key];
+  document.getElementById('policy-content').innerHTML=`<h2>${pol.title}</h2>${pol.content}`;
+  document.getElementById('policy-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closePolicy(){
+  document.getElementById('policy-modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+function closePolicyOutside(e){if(e.target===document.getElementById('policy-modal'))closePolicy();}
+
+/* ── COOKIES BANNER ── */
+function acceptCookies(){
+  localStorage.setItem('celestes-cookies','accepted');
+  document.getElementById('cookie-banner').classList.remove('visible');
+}
+function dismissCookies(){
+  localStorage.setItem('celestes-cookies','declined');
+  document.getElementById('cookie-banner').classList.remove('visible');
+}
+if(!localStorage.getItem('celestes-cookies')){
+  setTimeout(()=>document.getElementById('cookie-banner').classList.add('visible'),1800);
+}
+
+/* ── ESTRELLAS ── */
+const cv=document.getElementById('stars');
+const cx=cv.getContext('2d');
+function resize(){cv.width=cv.offsetWidth;cv.height=cv.offsetHeight}
+resize();
+const stars=Array.from({length:190},()=>({
+  x:Math.random(),y:Math.random(),
+  r:Math.random()*.95+.15,
+  o:Math.random()*.42+.08,
+  sp:Math.random()*.28+.08
+}));
+let t=0;
+(function draw(){
+  cx.clearRect(0,0,cv.width,cv.height);
+  stars.forEach(s=>{
+    const o=s.o*(.55+.45*Math.sin(t*s.sp+s.x*80));
+    cx.beginPath();cx.arc(s.x*cv.width,s.y*cv.height,s.r,0,Math.PI*2);
+    cx.fillStyle=`rgba(210,220,240,${o})`;cx.fill();
+  });
+  t+=.018;requestAnimationFrame(draw);
+})();
+window.addEventListener('resize',resize);
+</script>
+</body>
+</html>
