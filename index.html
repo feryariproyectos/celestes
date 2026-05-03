@@ -178,6 +178,12 @@ section{padding:4rem 5%}
 .btn-submit{width:100%;font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;background:var(--gold);color:var(--bg);border:none;padding:.92rem;cursor:pointer;margin-top:.4rem;border-radius:var(--r);transition:opacity .2s}
 .btn-submit:hover{opacity:.87}
 .delivery-note{text-align:center;font-size:.72rem;color:var(--text-dim);margin-top:.6rem;letter-spacing:.04em}
+.delivery-options{display:flex;gap:.8rem;margin-top:.3rem}
+.delivery-opt{display:flex;align-items:center;gap:.5rem;cursor:pointer;flex:1;border:.5px solid rgba(184,196,216,.13);padding:.65rem .9rem;border-radius:var(--r);transition:all .2s;font-family:'Cormorant Garamond',serif;font-size:.9rem;color:var(--text-dim)}
+.delivery-opt:has(input:checked){border-color:rgba(74,158,144,.4);background:rgba(74,158,144,.07);color:var(--ink)}
+.delivery-icon{font-size:1rem}
+.delivery-label{font-size:.85rem}
+.delivery-opt input{display:none}
 
 /* ── FOOTER ── */
 footer{padding:2.5rem 5%;border-top:.5px solid var(--gold-line)}
@@ -731,7 +737,24 @@ function buildForm(id){
     h+=`<div class="form-group"><label>¿Querés agregar una dedicatoria? (opcional)</label><textarea id="f-gift-dedica" placeholder="Una frase tuya para incluir en el documento..."></textarea></div>`;
   }
 
-  h+=inp('email','Email donde recibir la lectura','email','tu@email.com');
+  // Opción de entrega
+  h+=`<div class="form-group">
+    <label>¿Cómo querés recibir tu lectura?</label>
+    <div class="delivery-options">
+      <label class="delivery-opt">
+        <input type="radio" name="delivery" value="email" checked>
+        <span class="delivery-icon">✉</span>
+        <span class="delivery-label">Por email</span>
+      </label>
+      <label class="delivery-opt">
+        <input type="radio" name="delivery" value="whatsapp">
+        <span class="delivery-icon">💬</span>
+        <span class="delivery-label">Por WhatsApp</span>
+      </label>
+    </div>
+  </div>`;
+  h+=`<div id="whatsapp-field" style="display:none"><div class="form-group"><label>Tu número de WhatsApp (con código de país)</label><input type="tel" id="f-whatsapp" placeholder="ej: +54 9 11 1234 5678"></div></div>`;
+  h+=inp('email','Tu email (para confirmación de pago)','email','tu@email.com');
   return h;
 }
 
@@ -813,7 +836,29 @@ function handleSubmit(id){
     if(ps) ps.style.outline='1px solid rgba(220,80,60,.25)';
     return;
   }
-  // → aquí irá el redirect a Stripe o Mercado Pago
+  // Links de pago
+  const stripeLinks = {
+    'natal-adultos': 'https://buy.stripe.com/28EeV55jM1IObmyckiejK03',
+    'natal-ninos':   'https://buy.stripe.com/14A28j27A4V02Q2bgeejK04',
+    'revolucion':    'https://buy.stripe.com/7sYcMX3bE9bg62e5VUejK05',
+    'armonicos':     'https://buy.stripe.com/8x2bITcMe0EK2Q23NMejK06',
+    'guia-lunar':    'https://buy.stripe.com/8x2aEP27AgDIeyKfwuejK07',
+  };
+  const mpLinks = {
+    'natal-adultos': 'https://mpago.la/1hDjYds',
+    'natal-ninos':   'https://mpago.la/2PtLagR',
+    'revolucion':    'https://mpago.la/1JyWTZG',
+    'armonicos':     'https://mpago.la/1op6tRM',
+    'guia-lunar':    'https://mpago.la/1TDTtaZ',
+  };
+  if(p.usd && selectedPayment && id !== 'encuentro') {
+    // Guardar preferencia de entrega en sessionStorage para referencia
+    const delivery = document.querySelector('input[name="delivery"]:checked');
+    const deliveryPref = delivery ? delivery.value : 'email';
+    sessionStorage.setItem('celestes-delivery', deliveryPref);
+    const url = selectedPayment === 'stripe' ? stripeLinks[id] : mpLinks[id];
+    if(url) { window.location.href = url; return; }
+  }
   document.getElementById('modal-box').innerHTML=`
     <div style="text-align:center;padding:2.5rem 1rem">
       <div style="font-family:'Cormorant Upright',serif;font-size:2.2rem;color:var(--gold);margin-bottom:1rem">✦</div>
@@ -822,6 +867,13 @@ function handleSubmit(id){
       <button onclick="closeModal()" style="font-family:'Cinzel',serif;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;background:var(--gold);color:var(--bg);border:none;padding:.82rem 2rem;cursor:pointer;border-radius:4px">Cerrar</button>
     </div>`;
 }
+
+document.addEventListener('change', function(e){
+  if(e.target.name === 'delivery'){
+    const wf = document.getElementById('whatsapp-field');
+    if(wf) wf.style.display = e.target.value === 'whatsapp' ? 'block' : 'none';
+  }
+});
 
 function closeModal(){
   document.getElementById('modal-overlay').classList.remove('open');
