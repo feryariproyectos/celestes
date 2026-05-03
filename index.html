@@ -824,7 +824,7 @@ function openModal(id){
     <span class="m-label" style="margin-top:1rem">Tus datos</span>
     <div id="m-form">${buildForm(id)}</div>
     <div class="payment-section" id="pay-section">${payHtml}</div>
-    <button class="btn-submit" onclick="handleSubmit('${id}')">${p.usd?'Continuar al pago →':'Anotarme →'}</button>
+    <button class="btn-submit" onclick="handleSubmit('${id}')">${p.usd?'Enviar datos y pagar →':'Anotarme →'}</button>
     <p class="delivery-note">Entrega en 24 horas · Pago seguro · Documento HTML personalizado</p>
   `;
   document.getElementById('modal-overlay').classList.add('open');
@@ -848,9 +848,9 @@ function selectPay(method){
   if(m) m.className='pay-option'+(method==='mp'?' selected-mp':'');
 }
 
-function handleSubmit(id){
+async function handleSubmit(id){
   const p=products[id];
-  const emailEl=document.getElementById('f-email')||document.getElementById('f-wl-email');
+  const emailEl=document.getElementById('f-email');
   if(emailEl&&!emailEl.value.trim()){
     emailEl.style.borderColor='rgba(220,80,60,.4)';
     emailEl.focus();return;
@@ -859,6 +859,35 @@ function handleSubmit(id){
     const ps=document.getElementById('pay-section');
     if(ps) ps.style.outline='1px solid rgba(220,80,60,.25)';
     return;
+  }
+
+  // ── Recopilar todos los datos del formulario ──
+  const fields = {};
+  document.querySelectorAll('#m-form input, #m-form select, #m-form textarea').forEach(el=>{
+    if(el.id && el.value) fields[el.id.replace('f-','')] = el.value;
+  });
+  const delivery = document.querySelector('input[name="delivery"]:checked');
+  fields['entrega'] = delivery ? delivery.value : 'email';
+  fields['producto'] = p.title;
+  fields['pago'] = selectedPayment === 'stripe' ? 'Stripe (USD)' : selectedPayment === 'mp' ? 'Mercado Pago (ARS)' : '-';
+  fields['_subject'] = '✦ Nuevo pedido Celestes · ' + p.title;
+  fields['_replyto'] = fields['email'] || '';
+
+  // ── Mostrar estado enviando ──
+  const btn = document.querySelector('.btn-submit');
+  if(btn){ btn.textContent = 'Enviando datos...'; btn.disabled = true; }
+
+  try {
+    const res = await fetch('https://formspree.io/f/mykokjqb', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify(fields)
+    });
+    const data = await res.json();
+    if(!res.ok) throw new Error(data.error || 'Error');
+  } catch(e) {
+    console.warn('Formspree error:', e);
+    // Continuamos igual — el pago no se bloquea por error de formulario
   }
   // Links de pago
   const stripeLinks = {
@@ -876,10 +905,7 @@ function handleSubmit(id){
     'guia-lunar':    'https://mpago.la/1TDTtaZ',
   };
   if(p.usd && selectedPayment && id !== 'encuentro') {
-    // Guardar preferencia de entrega en sessionStorage para referencia
-    const delivery = document.querySelector('input[name="delivery"]:checked');
-    const deliveryPref = delivery ? delivery.value : 'email';
-    sessionStorage.setItem('celestes-delivery', deliveryPref);
+    // Redirigir al pago
     const url = selectedPayment === 'stripe' ? stripeLinks[id] : mpLinks[id];
     if(url) { window.location.href = url; return; }
   }
