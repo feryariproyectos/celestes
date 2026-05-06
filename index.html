@@ -62,16 +62,16 @@ canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .hero h1 em{font-style:italic;color:var(--gold)}
 .hero-sub{font-size:clamp(1rem,2.5vw,1.12rem);color:var(--silver);line-height:1.82;max-width:460px;margin:0 auto 2.6rem;font-weight:300}
 .hero-actions{display:flex;gap:1rem;align-items:center;flex-wrap:wrap;justify-content:center}
-.btn-primary{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;background:var(--gold);color:var(--bg);border:none;padding:.9rem 2.2rem;cursor:pointer;border-radius:var(--r);transition:opacity .2s}
+.btn-primary{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;background:var(--gold);color:var(--bg);border:none;padding:.9rem 2.2rem;cursor:pointer;border-radius:var(--r);transition:opacity .2s;font-weight:700}
 .btn-primary:hover{opacity:.86}
-.btn-ghost{font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;background:transparent;color:var(--gold);border:.5px solid var(--gold-line);padding:.9rem 2.2rem;cursor:pointer;border-radius:var(--r);transition:all .2s}
+.btn-ghost{font-family:'Cinzel',serif;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;background:transparent;color:var(--gold);border:.5px solid var(--gold-line);padding:.9rem 2.2rem;cursor:pointer;border-radius:var(--r);transition:all .2s;font-weight:700}
 .btn-ghost:hover{border-color:var(--gold);background:var(--gold-dim)}
 
 /* ── GIFT BANNER ── */
 .gift-banner{background:linear-gradient(135deg,#0e0c28 0%,#1a1240 50%,#0e0c28 100%);border-top:.5px solid var(--gold-line);border-bottom:.5px solid var(--gold-line);padding:1.8rem 5%;text-align:center}
 .gift-inner{max-width:700px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:1.4rem;flex-wrap:wrap}
 .gift-icon{font-size:1.4rem;opacity:.7;flex-shrink:0}
-.gift-text{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:var(--ink);line-height:1.6}
+.gift-text{font-family:'Cormorant Garamond',serif;font-size:1.28rem;font-style:italic;color:var(--ink);line-height:1.65}
 .gift-text strong{color:var(--gold);font-style:normal;font-weight:400}
 .gift-btn{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;background:transparent;color:var(--gold);border:.5px solid var(--gold-line);padding:.45rem 1rem;cursor:pointer;border-radius:var(--r);white-space:nowrap;transition:all .2s;flex-shrink:0}
 .gift-btn:hover{background:var(--gold-dim);border-color:var(--gold)}
@@ -103,10 +103,10 @@ section{padding:4rem 5%}
 .p-price-usd{font-family:'Cinzel',serif;font-size:.95rem;color:var(--gold);letter-spacing:.05em}
 .p-price-ars{font-size:.9rem;color:var(--text-dim)}
 .p-badges{display:flex;gap:.4rem;align-items:center}
-.badge-stripe{background:#1a1840;border:.5px solid rgba(99,91,255,.3);padding:.18rem .5rem;border-radius:2px;display:flex;align-items:center}
-.badge-stripe svg{height:11px;width:auto;opacity:.85}
-.badge-mp{background:#00284a;border:.5px solid rgba(0,158,227,.3);padding:.18rem .5rem;border-radius:2px;display:flex;align-items:center}
-.badge-mp svg{height:11px;width:auto;opacity:.85}
+.badge-stripe{background:#1a1840;border:.5px solid rgba(99,91,255,.35);padding:.32rem .75rem;border-radius:3px;display:flex;align-items:center}
+.badge-stripe svg{height:14px;width:auto;opacity:.9}
+.badge-mp{background:#00284a;border:.5px solid rgba(0,158,227,.35);padding:.32rem .75rem;border-radius:3px;display:flex;align-items:center}
+.badge-mp svg{height:14px;width:auto;opacity:.9}
 .p-cta{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;background:transparent;color:var(--gold);border:.5px solid var(--gold-line);padding:.55rem .9rem;cursor:pointer;border-radius:var(--r);transition:all .2s;width:100%}
 .p-cta:hover{background:var(--gold-dim);border-color:var(--gold)}
 
@@ -161,13 +161,13 @@ section{padding:4rem 5%}
 .m-title{font-family:'Cormorant Upright',serif;font-size:1.65rem;color:var(--ink);margin-bottom:.25rem}
 .m-price-row{display:flex;align-items:center;gap:.9rem;margin-bottom:1.3rem;flex-wrap:wrap}
 .m-price-usd{font-family:'Cinzel',serif;font-size:.95rem;color:var(--gold)}
-.m-price-ars{font-size:.82rem;color:var(--text-dim)}
+.m-price-ars{font-size:.88rem;color:rgba(100,200,188,0.78);font-family:'Cinzel',serif}
 .m-desc{font-size:.9rem;color:var(--text);line-height:1.8;font-style:italic;border-left:1.5px solid var(--gold-line);padding-left:.9rem;margin-bottom:1.3rem}
 .m-label{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);opacity:.72;margin-bottom:.6rem;display:block}
 .m-includes{margin-bottom:1.3rem}
 .m-includes ul{list-style:none;display:flex;flex-direction:column;gap:.25rem}
-.m-includes li{font-size:.83rem;color:var(--text-dim);padding-left:1rem;position:relative;line-height:1.62}
-.m-includes li::before{content:'·';position:absolute;left:0;color:var(--gold)}
+.m-includes li{font-size:.88rem;color:rgba(100,200,188,0.75);padding-left:1rem;position:relative;line-height:1.68;font-weight:500}
+.m-includes li::before{content:'·';position:absolute;left:0;color:rgba(100,200,188,0.9)}
 
 /* gift toggle */
 .gift-toggle{display:flex;gap:.6rem;margin-bottom:1.1rem}
@@ -263,7 +263,7 @@ footer{padding:2.5rem 5%;border-top:.5px solid var(--gold-line)}
   <div class="hero-glow"></div>
   <canvas id="stars"></canvas>
   <div class="hero-inner">
-    <p class="eyebrow">Autoconocimiento · Desarrollo personal · Entrega en 24 horas</p>
+    <p class="eyebrow" style="color:rgba(74,158,144,0.63)">Autoconocimiento · Desarrollo personal · Entrega en 24 horas</p>
     <h1>Habitarte mejor<br>empieza por<br><em>conocerte de verdad</em></h1>
     <p class="hero-sub">Informes astrológicos personalizados para entenderte mejor, acompañar a tus hijos y comprender tus vínculos. Herramientas concretas de autoconocimiento y bienestar.</p>
     <div class="hero-actions">
@@ -278,7 +278,7 @@ footer{padding:2.5rem 5%;border-top:.5px solid var(--gold-line)}
   <div class="gift-inner">
     <span class="gift-icon"><svg width="24" height="24" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" fill="none" opacity="0.7"><path d="M18 14c-2-4-6-6-9-4s-2 7 2 8h7" stroke="#4a9e90" stroke-width="1.5" stroke-linecap="round"/><path d="M18 14c2-4 6-6 9-4s2 7-2 8h-7" stroke="#4a9e90" stroke-width="1.5" stroke-linecap="round"/><rect x="10" y="18" width="16" height="10" rx="1.5" stroke="#4a9e90" stroke-width="1.5"/><line x1="18" y1="18" x2="18" y2="28" stroke="#4a9e90" stroke-width="1.5"/><line x1="10" y1="22" x2="26" y2="22" stroke="#4a9e90" stroke-width="1"/></svg></span>
     <p class="gift-text">¿Buscás un regalo diferente? <strong>Regalá autoconocimiento.</strong> Un informe personalizado que la persona va a leer y releer toda la vida.</p>
-    <button class="gift-btn" onclick="document.getElementById('regalos').scrollIntoView({behavior:'smooth'})">Ver opciones de regalo</button>
+    <button class="gift-btn" style="color:rgba(74,158,144,0.78);border-color:rgba(74,158,144,0.35)" onclick="document.getElementById('regalos').scrollIntoView({behavior:'smooth'})">Ver opciones de regalo</button>
   </div>
 </div>
 
@@ -286,9 +286,9 @@ footer{padding:2.5rem 5%;border-top:.5px solid var(--gold-line)}
 
 <!-- ── PRODUCTOS ── -->
 <section id="productos" style="padding:4rem 5%">
-  <p class="section-eyebrow">Lecturas disponibles</p>
+  <p class="section-eyebrow" style="color:rgba(74,158,144,0.63)">Lecturas disponibles</p>
   <h2 class="section-title">Elegí tu lectura</h2>
-  <p class="section-sub">Cada informe se elabora con tus datos de nacimiento y es único para vos. Lo recibís en menos de 24 horas por email o WhatsApp.</p>
+  <p class="section-sub" style="color:#f0ead8;font-size:1.08rem;max-width:520px">Cada informe se elabora con tus datos de nacimiento y es único para vos. Lo recibís en menos de 24 horas por email o WhatsApp.</p>
 
   <div class="products-grid">
 
@@ -479,7 +479,7 @@ footer{padding:2.5rem 5%;border-top:.5px solid var(--gold-line)}
 
 <!-- ── REGALOS ── -->
 <section id="regalos" class="gift-section">
-  <p class="section-eyebrow">Regalos que dejan huella</p>
+  <p class="section-eyebrow" style="color:rgba(74,158,144,0.63)">Regalos que dejan huella</p>
   <h2 class="section-title">El regalo más personal<br>que podés dar</h2>
   <p class="section-sub">Un informe único, elaborado especialmente para esa persona. Algo que van a tener para siempre y que habla directamente de quién son.</p>
   <div style="max-width:580px;margin:0 auto 2.5rem;border-left:2px solid var(--gold);padding:1rem 1.8rem;background:var(--gold-dim);border-radius:0 var(--r) var(--r) 0"><p style="font-family:'Cormorant Garamond',serif;font-size:1.22rem;font-style:italic;color:var(--ink);line-height:1.75;margin:0">Quien no se conoce repite.<br><strong style="color:var(--gold);font-style:normal;font-weight:400">Quien se conoce, elige.</strong></p></div>
@@ -524,7 +524,7 @@ footer{padding:2.5rem 5%;border-top:.5px solid var(--gold-line)}
 
     <div class="acc-item">
       <div class="acc-header" onclick="toggleAcc(this)">
-        <div class="acc-title-wrap"><span class="acc-icon-sm" style="color:#7a80c8">◉</span><span class="acc-title">Carta Natal · Adultos — USD 50</span></div>
+        <div class="acc-title-wrap"><span class="acc-icon-sm" style="color:#7a80c8">◉</span><span class="acc-title">Carta Natal · Adultos — USD 50 <span style="color:rgba(100,200,188,0.7);font-size:.88rem;font-family:'Cormorant Garamond',serif;font-style:italic"> · ARS 60.000</span></span></div>
         <span class="acc-arrow">▾</span>
       </div>
       <div class="acc-body"><div class="acc-content">
@@ -535,7 +535,7 @@ footer{padding:2.5rem 5%;border-top:.5px solid var(--gold-line)}
 
     <div class="acc-item">
       <div class="acc-header" onclick="toggleAcc(this)">
-        <div class="acc-title-wrap"><span class="acc-icon-sm" style="color:#c87890">◉</span><span class="acc-title">Carta Natal · Niños — USD 35</span></div>
+        <div class="acc-title-wrap"><span class="acc-icon-sm" style="color:#c87890">◉</span><span class="acc-title">Carta Natal · Niños — USD 35 <span style="color:rgba(100,200,188,0.7);font-size:.88rem;font-family:'Cormorant Garamond',serif;font-style:italic"> · ARS 42.000</span></span></div>
         <span class="acc-arrow">▾</span>
       </div>
       <div class="acc-body"><div class="acc-content">
@@ -546,7 +546,7 @@ footer{padding:2.5rem 5%;border-top:.5px solid var(--gold-line)}
 
     <div class="acc-item">
       <div class="acc-header" onclick="toggleAcc(this)">
-        <div class="acc-title-wrap"><span class="acc-icon-sm" style="color:#c8a040">◉</span><span class="acc-title">Revolución Solar — USD 50</span></div>
+        <div class="acc-title-wrap"><span class="acc-icon-sm" style="color:#c8a040">◉</span><span class="acc-title">Revolución Solar — USD 50 <span style="color:rgba(100,200,188,0.7);font-size:.88rem;font-family:'Cormorant Garamond',serif;font-style:italic"> · ARS 60.000</span></span></div>
         <span class="acc-arrow">▾</span>
       </div>
       <div class="acc-body"><div class="acc-content">
@@ -557,7 +557,7 @@ footer{padding:2.5rem 5%;border-top:.5px solid var(--gold-line)}
 
     <div class="acc-item">
       <div class="acc-header" onclick="toggleAcc(this)">
-        <div class="acc-title-wrap"><span class="acc-icon-sm" style="color:#4a9e90">◉</span><span class="acc-title">Carta de Armónicos — USD 40</span></div>
+        <div class="acc-title-wrap"><span class="acc-icon-sm" style="color:#4a9e90">◉</span><span class="acc-title">Carta de Armónicos — USD 40 <span style="color:rgba(100,200,188,0.7);font-size:.88rem;font-family:'Cormorant Garamond',serif;font-style:italic"> · ARS 48.000</span></span></div>
         <span class="acc-arrow">▾</span>
       </div>
       <div class="acc-body"><div class="acc-content">
@@ -568,7 +568,7 @@ footer{padding:2.5rem 5%;border-top:.5px solid var(--gold-line)}
 
     <div class="acc-item">
       <div class="acc-header" onclick="toggleAcc(this)">
-        <div class="acc-title-wrap"><span class="acc-icon-sm" style="color:#8aaec8">◉</span><span class="acc-title">Guía Lunar Mensual — USD 25</span></div>
+        <div class="acc-title-wrap"><span class="acc-icon-sm" style="color:#8aaec8">◉</span><span class="acc-title">Guía Lunar Mensual — USD 25 <span style="color:rgba(100,200,188,0.7);font-size:.88rem;font-family:'Cormorant Garamond',serif;font-style:italic"> · ARS 30.000</span></span></div>
         <span class="acc-arrow">▾</span>
       </div>
       <div class="acc-body"><div class="acc-content">
@@ -579,7 +579,7 @@ footer{padding:2.5rem 5%;border-top:.5px solid var(--gold-line)}
 
     <div class="acc-item">
       <div class="acc-header" onclick="toggleAcc(this)">
-        <div class="acc-title-wrap"><span class="acc-icon-sm" style="color:#7aaa88">◉</span><span class="acc-title">El Mapa del Encuentro — precio próximamente</span></div>
+        <div class="acc-title-wrap"><span class="acc-icon-sm" style="color:#7aaa88">◉</span><span class="acc-title">El Mapa del Encuentro <span style="color:rgba(100,200,188,0.55);font-size:.88rem;font-family:'Cormorant Garamond',serif;font-style:italic"> · precio próximamente</span></span></div>
         <span class="acc-arrow">▾</span>
       </div>
       <div class="acc-body"><div class="acc-content">
