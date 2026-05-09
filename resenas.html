@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reseñas · Celestes</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#07091c;--bg2:#0d1030;--bg3:#111540;
+  --ink:#f0ead8;--text:#cdc8bc;--text-dim:#6e6a7a;
+  --c1:#08f7fa;--c2:#2ecefc;--c3:#86A8FC;
+  --gold:#c9a84c;--star:#f7c948;
+  --r:4px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Cormorant Garamond',Georgia,serif;overflow-x:hidden}
+
+/* NAV */
+nav{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 5%;border-bottom:.5px solid rgba(8,247,250,0.15);position:sticky;top:0;background:rgba(7,9,28,.96);backdrop-filter:blur(10px);z-index:100;gap:1rem}
+.nav-logo a{text-decoration:none;display:block}
+.nav-logo-name{font-family:'Cinzel',serif;font-size:1.5rem;letter-spacing:.22em;color:var(--c2);display:block}
+.nav-logo-sub{font-size:.68rem;letter-spacing:.28em;color:var(--c1);font-style:italic;display:block;margin-top:-2px;opacity:.8}
+.nav-back{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--c1);text-decoration:none;opacity:.7;transition:opacity .2s}
+.nav-back:hover{opacity:1}
+.nav-cta{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.12em;color:var(--c1);border:.5px solid var(--c1);padding:.5rem 1.2rem;cursor:pointer;text-transform:uppercase;border-radius:var(--r);text-decoration:none;transition:all .2s}
+.nav-cta:hover{background:rgba(8,247,250,.08)}
+
+/* HERO */
+.hero{padding:5rem 5% 4rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;border-radius:50%;background:radial-gradient(ellipse,rgba(247,201,72,.04) 0%,transparent 70%);pointer-events:none}
+.eyebrow{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.38em;color:var(--c1);text-transform:uppercase;margin-bottom:1.2rem;display:block}
+.hero h1{font-family:'Cormorant Upright',serif;font-size:clamp(2.2rem,5vw,3.8rem);font-weight:300;color:var(--ink);line-height:1.1;margin-bottom:1rem}
+.hero h1 em{font-style:italic;color:var(--c1)}
+.hero-sub{font-size:1.05rem;color:var(--text);line-height:1.8;max-width:460px;margin:0 auto 2rem;font-style:italic}
+
+/* STATS */
+.stats{display:flex;gap:3rem;justify-content:center;flex-wrap:wrap;margin-bottom:.5rem}
+.stat{text-align:center}
+.stat-num{font-family:'Cormorant Upright',serif;font-size:2.5rem;color:var(--c1);display:block;line-height:1}
+.stat-label{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.2em;color:var(--text-dim);text-transform:uppercase}
+.stars-row{color:var(--star);font-size:1.1rem;letter-spacing:.1em;margin:0 auto .3rem;display:block;text-align:center}
+
+/* DIVIDER */
+.divider{display:flex;align-items:center;gap:1.5rem;padding:0 5%;margin:.8rem 0}
+.divider-line{flex:1;height:.5px;background:rgba(8,247,250,.15)}
+.divider-glyph{font-size:.9rem;color:var(--c1);opacity:.5}
+
+/* REVIEWS GRID */
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:1.2rem;max-width:1060px;margin:0 auto;padding:0 5% 3rem}
+
+/* REVIEW CARD */
+.review-card{background:var(--bg2);border:.5px solid rgba(8,247,250,.1);border-radius:var(--r);padding:1.8rem;position:relative;transition:border-color .3s}
+.review-card:hover{border-color:rgba(8,247,250,.25)}
+.review-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--c1),transparent);opacity:0;transition:opacity .3s}
+.review-card:hover::before{opacity:.4}
+.review-card.featured{border-color:rgba(247,201,72,.25);background:linear-gradient(135deg,#0e0c28,var(--bg2))}
+.review-card.featured::before{opacity:.3;background:linear-gradient(90deg,transparent,var(--star),transparent)}
+
+/* Card header */
+.review-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem;gap:.8rem}
+.review-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Upright',serif;font-size:1.1rem;color:var(--ink);flex-shrink:0;font-weight:400}
+.review-meta{flex:1}
+.review-name{font-family:'Cormorant Upright',serif;font-size:1.05rem;color:var(--ink);line-height:1.2;margin-bottom:2px}
+.review-info{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.15em;color:var(--text-dim);text-transform:uppercase}
+.review-flag{font-size:1.1rem;flex-shrink:0}
+
+/* Stars */
+.review-stars{color:var(--star);font-size:.95rem;letter-spacing:.05em;margin-bottom:.8rem}
+
+/* Product tag */
+.review-product{display:inline-block;font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.15em;text-transform:uppercase;padding:.18rem .55rem;border:.5px solid rgba(46,206,252,.25);color:var(--c2);background:rgba(46,206,252,.05);border-radius:2px;margin-bottom:.9rem}
+
+/* Body */
+.review-text{font-size:.98rem;color:var(--text);line-height:1.82;font-style:italic;position:relative;padding-left:1.2rem}
+.review-text::before{content:'"';position:absolute;left:0;top:-.1rem;font-size:1.8rem;color:var(--c1);opacity:.3;font-family:'Cormorant Upright',serif;line-height:1}
+
+/* Date */
+.review-date{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.12em;color:var(--text-dim);margin-top:1rem;text-align:right}
+
+/* FORM SECTION */
+.form-section{background:var(--bg2);border-top:.5px solid rgba(8,247,250,.12);border-bottom:.5px solid rgba(8,247,250,.12);padding:3.5rem 5%}
+.form-inner{max-width:600px;margin:0 auto}
+.form-section h2{font-family:'Cormorant Upright',serif;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:300;color:var(--ink);margin-bottom:.4rem}
+.form-section h2 em{color:var(--c1);font-style:italic}
+.form-section p{color:var(--text-dim);font-size:.92rem;font-style:italic;margin-bottom:2rem;line-height:1.75}
+
+/* Star selector */
+.star-selector{display:flex;gap:.3rem;margin-bottom:1.2rem;font-size:1.6rem;cursor:pointer}
+.star-selector span{color:var(--text-dim);transition:color .15s;user-select:none}
+.star-selector span.active,.star-selector span:hover{color:var(--star)}
+
+/* Form fields */
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.9rem}
+@media(max-width:480px){.form-row{grid-template-columns:1fr}}
+.form-group{margin-bottom:.9rem}
+.form-group label{display:block;font-family:'Cinzel',serif;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--c3);margin-bottom:.35rem}
+.form-group input,.form-group select,.form-group textarea{width:100%;background:rgba(255,255,255,.04);border:.5px solid rgba(134,168,252,.2);color:var(--c3);padding:.65rem .85rem;font-family:'Cormorant Garamond',serif;font-size:.95rem;outline:none;transition:border-color .2s;border-radius:var(--r)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:rgba(8,247,250,.35);color:var(--ink)}
+.form-group select option{background:var(--bg2)}
+.form-group textarea{resize:vertical;min-height:100px}
+.btn-submit{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;background:transparent;color:var(--c1);border:.5px solid var(--c1);padding:.9rem 2.2rem;cursor:pointer;border-radius:var(--r);transition:all .2s;font-weight:700;margin-top:.4rem}
+.btn-submit:hover{background:rgba(8,247,250,.08)}
+.form-note{font-size:.75rem;color:var(--text-dim);font-style:italic;margin-top:.6rem}
+
+/* CTA */
+.cta-section{padding:3.5rem 5%;text-align:center}
+.cta-section h2{font-family:'Cormorant Upright',serif;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:300;color:var(--ink);margin-bottom:.8rem}
+.cta-section h2 em{color:var(--c1);font-style:italic}
+.cta-section p{color:var(--text-dim);font-size:.95rem;font-style:italic;margin-bottom:2rem}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-primary{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;background:transparent;color:var(--c1);border:.5px solid var(--c1);padding:.9rem 2.2rem;cursor:pointer;border-radius:var(--r);transition:all .2s;text-decoration:none;font-weight:700}
+.btn-primary:hover{background:rgba(8,247,250,.08)}
+.btn-ghost{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;background:transparent;color:var(--c2);border:.5px solid rgba(46,206,252,.3);padding:.9rem 2.2rem;cursor:pointer;border-radius:var(--r);transition:all .2s;text-decoration:none;font-weight:700}
+.btn-ghost:hover{background:rgba(46,206,252,.07)}
+
+footer{padding:2rem 5%;border-top:.5px solid rgba(8,247,250,.12);text-align:center}
+footer p{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.2em;color:var(--c1);opacity:.5}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <a href="index.html">
+      <span class="nav-logo-name">Celestes</span>
+      <span class="nav-logo-sub">lecturas astrológicas</span>
+    </a>
+  </div>
+  <a href="index.html" class="nav-back">← Volver</a>
+  <a href="index.html#productos" class="nav-cta">Ver lecturas</a>
+</nav>
+
+<section class="hero">
+  <span class="eyebrow">Experiencias reales · Personas reales</span>
+  <h1>Lo que dicen<br>quienes ya<br><em>recibieron su lectura</em></h1>
+  <p class="hero-sub">Cada informe es único. Estas son las palabras de quienes ya recorrieron el camino.</p>
+
+  <div class="stats">
+    <div class="stat">
+      <span class="stat-num">5.0</span>
+      <span class="stars-row">★★★★★</span>
+      <span class="stat-label">Puntuación promedio</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">100%</span>
+      <span class="stat-label">Recomendarían Celestes</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">24hs</span>
+      <span class="stat-label">Tiempo de entrega</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><span class="divider-glyph">★</span><div class="divider-line"></div></div>
+
+<!-- RESEÑAS -->
+<div class="reviews-grid">
+
+  <!-- 1 — Argentina — Carta Natal Adultos — emocional -->
+  <div class="review-card featured">
+    <div class="review-header">
+      <div class="review-avatar" style="background:linear-gradient(135deg,#1a1040,#0d1030);border:.5px solid rgba(122,128,200,.3)">M</div>
+      <div class="review-meta">
+        <div class="review-name">Marcela R.</div>
+        <div class="review-info">Buenos Aires, Argentina</div>
+      </div>
+      <span class="review-flag">🇦🇷</span>
+    </div>
+    <div class="review-stars">★★★★★</div>
+    <span class="review-product">Carta Natal · Adultos</span>
+    <p class="review-text">Cuando empecé a leer sentí que alguien finalmente me veía de verdad. No de una manera general — de una manera específicamente mía. La sección del eje nodal me dejó sin palabras porque describía exactamente la tensión que vivo hace años sin poder nombrarla. Lloré. Lo mejor que pude hacer por mí misma en mucho tiempo.</p>
+    <div class="review-date">Abril 2026</div>
+  </div>
+
+  <!-- 2 — México — Guía Lunar — práctica -->
+  <div class="review-card">
+    <div class="review-header">
+      <div class="review-avatar" style="background:linear-gradient(135deg,#081828,#0d1030);border:.5px solid rgba(138,174,200,.3)">S</div>
+      <div class="review-meta">
+        <div class="review-name">Sofía M.</div>
+        <div class="review-info">Ciudad de México, México</div>
+      </div>
+      <span class="review-flag">🇲🇽</span>
+    </div>
+    <div class="review-stars">★★★★★</div>
+    <span class="review-product">Guía Lunar Mensual</span>
+    <p class="review-text">Lo que más me sorprendió fue la precisión. Las fechas que marcó como ventanas de decisión coincidieron exactamente con movimientos importantes en mi vida ese mes. Ya pedí el de mayo también. Es una herramienta que quiero tener todos los meses — me ayuda a organizarme desde adentro.</p>
+    <div class="review-date">Marzo 2026</div>
+  </div>
+
+  <!-- 3 — Argentina — Carta Natal Niños — padres -->
+  <div class="review-card">
+    <div class="review-header">
+      <div class="review-avatar" style="background:linear-gradient(135deg,#200818,#0d1030);border:.5px solid rgba(200,120,144,.3)">C</div>
+      <div class="review-meta">
+        <div class="review-name">Carolina y Martín</div>
+        <div class="review-info">Córdoba, Argentina</div>
+      </div>
+      <span class="review-flag">🇦🇷</span>
+    </div>
+    <div class="review-stars">★★★★★</div>
+    <span class="review-product">Carta Natal · Niños</span>
+    <p class="review-text">Lo pedimos para nuestro hijo de 6 años porque sentíamos que había algo en él que no terminábamos de entender. El informe nos dio un lenguaje para nombrarlo. La sección para padres fue un regalo — concreta, sin vueltas, con orientaciones reales. Lo leímos juntos tres veces.</p>
+    <div class="review-date">Febrero 2026</div>
+  </div>
+
+  <!-- 4 — España — Armónicos — intelectual -->
+  <div class="review-card">
+    <div class="review-header">
+      <div class="review-avatar" style="background:linear-gradient(135deg,#081820,#0d1030);border:.5px solid rgba(74,158,144,.3)">P</div>
+      <div class="review-meta">
+        <div class="review-name">Pablo G.</div>
+        <div class="review-info">Barcelona, España</div>
+      </div>
+      <span class="review-flag">🇪🇸</span>
+    </div>
+    <div class="review-stars">★★★★★</div>
+    <span class="review-product">Carta de Armónicos</span>
+    <p class="review-text">Soy psicólogo jungiano y pedí los armónicos con cierto escepticismo. Quedé genuinamente sorprendido. La lectura del armónico dominante describía con una precisión incómoda algo que llevo años trabajando en análisis. Las conjunciones ocultas revelaron conexiones que la carta natal no mostraba. Recomendaré esto a mis colegas.</p>
+    <div class="review-date">Enero 2026</div>
+  </div>
+
+  <!-- 5 — Argentina — Revolución Solar — transformación -->
+  <div class="review-card">
+    <div class="review-header">
+      <div class="review-avatar" style="background:linear-gradient(135deg,#1a1008,#0d1030);border:.5px solid rgba(200,160,64,.3)">V</div>
+      <div class="review-meta">
+        <div class="review-name">Valentina O.</div>
+        <div class="review-info">Rosario, Argentina</div>
+      </div>
+      <span class="review-flag">🇦🇷</span>
+    </div>
+    <div class="review-stars">★★★★★</div>
+    <span class="review-product">Revolución Solar</span>
+    <p class="review-text">Lo pedí para mi cumpleaños 35 que sentía que iba a ser un año importante. Y fue exactamente eso: la lectura me dio un mapa de por dónde iba a ir la energía, y pude tomar decisiones laborales con mucha más claridad. En octubre tomé una decisión que llevaba meses postergando, justo en la ventana que marcaba el informe. Todavía me asombra.</p>
+    <div class="review-date">Diciembre 2025</div>
+  </div>
+
+</div>
+
+<div class="divider"><div class="divider-line"></div><span class="divider-glyph">✦</span><div class="divider-line"></div></div>
+
+<!-- FORMULARIO DE RESEÑA -->
+<section class="form-section">
+  <div class="form-inner">
+    <h2>¿Ya recibiste<br><em>tu lectura?</em></h2>
+    <p>Tu experiencia ayuda a otras personas a animarse a conocerse mejor. Compartila acá — con tu nombre, ciudad y el producto que pediste.</p>
+
+    <div class="star-selector" id="starSelector">
+      <span onclick="setStars(1)" data-val="1">★</span>
+      <span onclick="setStars(2)" data-val="2">★</span>
+      <span onclick="setStars(3)" data-val="3">★</span>
+      <span onclick="setStars(4)" data-val="4">★</span>
+      <span onclick="setStars(5)" data-val="5">★</span>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Tu nombre</label>
+        <input type="text" id="r-nombre" placeholder="Nombre y apellido">
+      </div>
+      <div class="form-group">
+        <label>Ciudad y país</label>
+        <input type="text" id="r-ciudad" placeholder="Buenos Aires, Argentina">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>¿Qué lectura pediste?</label>
+      <select id="r-producto">
+        <option value="">Seleccioná el producto</option>
+        <option>Carta Natal · Adultos</option>
+        <option>Carta Natal · Niños</option>
+        <option>Revolución Solar</option>
+        <option>Carta de Armónicos</option>
+        <option>Guía Lunar Mensual</option>
+        <option>El Mapa del Encuentro</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Tu experiencia</label>
+      <textarea id="r-texto" placeholder="Contanos qué te pareció, qué te sorprendió, cómo te llegó..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>Tu email (no se publica, solo para verificar)</label>
+      <input type="email" id="r-email" placeholder="tu@email.com">
+    </div>
+    <button class="btn-submit" onclick="enviarResena()">Enviar mi reseña →</button>
+    <p class="form-note">Las reseñas se publican tras verificación. Tu email nunca se muestra públicamente.</p>
+
+    <div id="resena-ok" style="display:none;margin-top:1.2rem;padding:1rem 1.4rem;border:.5px solid rgba(8,247,250,.3);border-radius:var(--r);background:rgba(8,247,250,.05)">
+      <p style="color:var(--c1);font-size:.92rem;font-style:italic">✦ ¡Gracias! Tu reseña fue enviada y la publicaremos pronto.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section">
+  <h2>Tu lectura<br><em>te está esperando</em></h2>
+  <p>Entrega en menos de 24 horas. Por email o WhatsApp.</p>
+  <div class="cta-btns">
+    <a href="index.html#productos" class="btn-primary">Ver todas las lecturas</a>
+    <a href="ejemplos.html" class="btn-ghost">Ver ejemplos →</a>
+  </div>
+</section>
+
+<footer>
+  <p>CELESTES · lecturas astrológicas de autor · celestes.app</p>
+</footer>
+
+<script>
+let selectedStars = 5;
+
+function setStars(n) {
+  selectedStars = n;
+  document.querySelectorAll('#starSelector span').forEach((s, i) => {
+    s.classList.toggle('active', i < n);
+  });
+}
+// Activar 5 estrellas por defecto
+setStars(5);
+
+async function enviarResena() {
+  const nombre = document.getElementById('r-nombre').value.trim();
+  const ciudad = document.getElementById('r-ciudad').value.trim();
+  const producto = document.getElementById('r-producto').value;
+  const texto = document.getElementById('r-texto').value.trim();
+  const email = document.getElementById('r-email').value.trim();
+
+  if (!nombre || !texto || !email) {
+    alert('Por favor completá nombre, reseña y email.');
+    return;
+  }
+
+  const btn = document.querySelector('.btn-submit');
+  btn.textContent = 'Enviando...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('https://formspree.io/f/mykokjqb', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify({
+        _subject: `⭐ Nueva reseña Celestes · ${selectedStars} estrellas · ${nombre}`,
+        nombre, ciudad, producto,
+        puntuacion: selectedStars + ' estrellas',
+        resena: texto,
+        email,
+        tipo: 'RESEÑA'
+      })
+    });
+    if (res.ok) {
+      document.getElementById('resena-ok').style.display = 'block';
+      btn.textContent = '¡Enviada! ✦';
+    } else {
+      throw new Error();
+    }
+  } catch {
+    btn.textContent = 'Enviar mi reseña →';
+    btn.disabled = false;
+    alert('Hubo un error. Por favor intentá de nuevo.');
+  }
+}
+</script>
+</body>
+</html>

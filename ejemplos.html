@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ejemplos de lecturas · Celestes</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#07091c;--bg2:#0d1030;--bg3:#111540;
+  --ink:#f0ead8;--text:#cdc8bc;--text-dim:#6e6a7a;
+  --c1:#08f7fa;--c2:#2ecefc;--c3:#86A8FC;
+  --gold:#c9a84c;--gold-line:rgba(201,168,76,0.18);
+  --r:4px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Cormorant Garamond',Georgia,serif;overflow-x:hidden}
+
+/* NAV */
+nav{display:flex;align-items:center;justify-content:space-between;padding:1.1rem 5%;border-bottom:.5px solid rgba(8,247,250,0.15);position:sticky;top:0;background:rgba(7,9,28,.96);backdrop-filter:blur(10px);z-index:100;gap:1rem}
+.nav-logo a{text-decoration:none;display:block}
+.nav-logo-name{font-family:'Cinzel',serif;font-size:1.5rem;letter-spacing:.22em;color:var(--c2);display:block}
+.nav-logo-sub{font-size:.68rem;letter-spacing:.28em;color:var(--c1);font-style:italic;display:block;margin-top:-2px;opacity:.8}
+.nav-back{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--c1);text-decoration:none;opacity:.7;transition:opacity .2s}
+.nav-back:hover{opacity:1}
+.nav-cta{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.12em;color:var(--bg);background:transparent;border:.5px solid var(--c1);color:var(--c1);padding:.5rem 1.2rem;cursor:pointer;text-transform:uppercase;border-radius:var(--r);text-decoration:none;transition:all .2s}
+.nav-cta:hover{background:rgba(8,247,250,.08)}
+
+/* HERO */
+.hero{padding:5rem 5% 4rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;border-radius:50%;background:radial-gradient(ellipse,rgba(8,247,250,.05) 0%,transparent 70%);pointer-events:none}
+.eyebrow{font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.38em;color:var(--c1);text-transform:uppercase;margin-bottom:1.2rem;display:block}
+.hero h1{font-family:'Cormorant Upright',serif;font-size:clamp(2.2rem,5vw,3.8rem);font-weight:300;color:var(--ink);line-height:1.1;margin-bottom:1rem}
+.hero h1 em{font-style:italic;color:var(--c1)}
+.hero-sub{font-size:1.05rem;color:var(--text);line-height:1.8;max-width:520px;margin:0 auto 0;font-weight:300;font-style:italic}
+
+/* DIVIDER */
+.divider{display:flex;align-items:center;gap:1.5rem;padding:0 5%;margin:.8rem 0}
+.divider-line{flex:1;height:.5px;background:rgba(8,247,250,.15)}
+.divider-glyph{font-size:.9rem;color:var(--c1);opacity:.5}
+
+/* SECTION */
+.section{padding:3.5rem 5%}
+.section-eyebrow{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--c1);margin-bottom:.6rem;display:block}
+.section-title{font-family:'Cormorant Upright',serif;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:300;color:var(--ink);margin-bottom:.4rem}
+.section-sub{color:var(--text-dim);font-size:.95rem;line-height:1.75;max-width:480px;margin-bottom:2.5rem}
+
+/* TEASER CARDS */
+.teasers{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:1.5rem;max-width:1060px}
+.teaser-card{background:var(--bg2);border:.5px solid rgba(8,247,250,.12);border-radius:var(--r);overflow:hidden;transition:border-color .3s,transform .2s;cursor:pointer;position:relative}
+.teaser-card:hover{border-color:rgba(8,247,250,.3);transform:translateY(-2px)}
+.teaser-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--c1),transparent);opacity:0;transition:opacity .3s}
+.teaser-card:hover::before{opacity:.5}
+
+/* Teaser preview area */
+.teaser-preview{height:220px;position:relative;overflow:hidden;background:var(--bg3)}
+.teaser-preview-inner{padding:1.5rem;height:100%;display:flex;flex-direction:column;justify-content:space-between;position:relative}
+.preview-label{font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.28em;text-transform:uppercase;color:var(--c1);opacity:.7}
+.preview-title{font-family:'Cormorant Upright',serif;font-size:1.6rem;font-weight:300;color:var(--ink);line-height:1.1}
+.preview-excerpt{font-size:.82rem;color:var(--text-dim);line-height:1.7;font-style:italic}
+.preview-fade{position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(transparent,var(--bg3))}
+
+/* Teaser body */
+.teaser-body{padding:1.4rem 1.6rem 1.6rem}
+.teaser-product{font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--c2);margin-bottom:.5rem;display:block}
+.teaser-name{font-family:'Cormorant Upright',serif;font-size:1.3rem;color:var(--ink);margin-bottom:.5rem}
+.teaser-desc{font-size:.88rem;color:var(--text-dim);line-height:1.7;font-style:italic;margin-bottom:1.2rem}
+.teaser-btn{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--c2);border:.5px solid rgba(46,206,252,.3);padding:.5rem 1rem;border-radius:var(--r);text-decoration:none;display:inline-block;transition:all .2s}
+.teaser-btn:hover{background:rgba(46,206,252,.07);border-color:var(--c2)}
+
+/* COMING SOON badge */
+.badge-soon{display:inline-block;font-family:'Cinzel',serif;font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;padding:.2rem .6rem;border:.5px solid rgba(134,168,252,.3);color:var(--c3);background:rgba(134,168,252,.06);border-radius:2px;margin-bottom:.8rem}
+
+/* Preview visual decorativos */
+.prev-rings{position:absolute;right:-20px;bottom:-20px;opacity:.12}
+.prev-dots{display:flex;gap:.3rem;margin-top:.5rem}
+.prev-dot{width:5px;height:5px;border-radius:50%;background:var(--c1);opacity:.4}
+.prev-dot.active{opacity:.9;width:8px;height:8px;margin-top:-1.5px}
+
+/* CTA SECTION */
+.cta-section{background:var(--bg2);border-top:.5px solid rgba(8,247,250,.12);border-bottom:.5px solid rgba(8,247,250,.12);padding:3.5rem 5%;text-align:center}
+.cta-section h2{font-family:'Cormorant Upright',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:300;color:var(--ink);margin-bottom:.8rem}
+.cta-section h2 em{color:var(--c1);font-style:italic}
+.cta-section p{color:var(--text-dim);font-size:.95rem;font-style:italic;margin-bottom:2rem;max-width:420px;margin-left:auto;margin-right:auto}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-primary{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;background:transparent;color:var(--c1);border:.5px solid var(--c1);padding:.9rem 2.2rem;cursor:pointer;border-radius:var(--r);transition:all .2s;text-decoration:none;font-weight:700}
+.btn-primary:hover{background:rgba(8,247,250,.08)}
+.btn-ghost{font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;background:transparent;color:var(--c2);border:.5px solid rgba(46,206,252,.3);padding:.9rem 2.2rem;cursor:pointer;border-radius:var(--r);transition:all .2s;text-decoration:none;font-weight:700}
+.btn-ghost:hover{background:rgba(46,206,252,.07);border-color:var(--c2)}
+
+footer{padding:2rem 5%;border-top:.5px solid rgba(8,247,250,.12);text-align:center}
+footer p{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.2em;color:var(--c1);opacity:.5}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <a href="index.html">
+      <span class="nav-logo-name">Celestes</span>
+      <span class="nav-logo-sub">lecturas astrológicas</span>
+    </a>
+  </div>
+  <a href="index.html" class="nav-back">← Volver</a>
+  <a href="index.html#productos" class="nav-cta">Ver lecturas</a>
+</nav>
+
+<section class="hero">
+  <span class="eyebrow">Calidad · Profundidad · Cuidado editorial</span>
+  <h1>Así se ve una lectura<br><em>de Celestes</em></h1>
+  <p class="hero-sub">Cada informe es un documento visual único, elaborado con profundidad y pensado para acompañarte durante años.</p>
+</section>
+
+<div class="divider"><div class="divider-line"></div><span class="divider-glyph">✦</span><div class="divider-line"></div></div>
+
+<!-- CARTA NATAL ADULTOS -->
+<section class="section">
+  <span class="section-eyebrow">· Carta Natal · Adultos</span>
+  <h2 class="section-title">El mapa completo de quién sos</h2>
+  <p class="section-sub">Identidad, talentos, patrones y dirección evolutiva. Un documento de autoconocimiento profundo.</p>
+
+  <div class="teasers">
+    <div class="teaser-card" onclick="window.open('andres-carta-natal.html','_blank')">
+      <div class="teaser-preview" style="background:linear-gradient(135deg,#100d30,#0d1030)">
+        <div class="teaser-preview-inner">
+          <div>
+            <span class="preview-label">Carta Natal · Adultos · Ejemplo real</span>
+            <div class="preview-title">Andrés<br>Acuario · Leo AC</div>
+          </div>
+          <div>
+            <p class="preview-excerpt">"No viniste a brillar. Viniste a iluminar. La diferencia lo es todo."</p>
+            <div class="prev-dots">
+              <div class="prev-dot active"></div>
+              <div class="prev-dot"></div>
+              <div class="prev-dot"></div>
+              <div class="prev-dot"></div>
+            </div>
+          </div>
+        </div>
+        <div class="preview-fade"></div>
+        <svg class="prev-rings" width="140" height="140" viewBox="0 0 140 140">
+          <circle cx="70" cy="70" r="65" fill="none" stroke="#7a80c8" stroke-width="0.5"/>
+          <circle cx="70" cy="70" r="45" fill="none" stroke="#7a80c8" stroke-width="0.5"/>
+          <circle cx="70" cy="70" r="25" fill="none" stroke="#7a80c8" stroke-width="0.5"/>
+        </svg>
+      </div>
+      <div class="teaser-body">
+        <span class="teaser-product">Carta Natal · Adultos</span>
+        <div class="teaser-name">Lectura de Andrés</div>
+        <p class="teaser-desc">Ascendente Leo, Sol Acuario en casa 7. Una carta que habla de liderazgo, vínculos y la tensión entre brillar y servir. 11 secciones, enfoque junguiano completo.</p>
+        <a href="andres-carta-natal.html" target="_blank" class="teaser-btn">Ver ejemplo completo →</a>
+      </div>
+    </div>
+
+    <div class="teaser-card">
+      <div class="teaser-preview" style="background:linear-gradient(135deg,#14102a,#0d1030)">
+        <div class="teaser-preview-inner">
+          <div>
+            <span class="preview-label">Carta Natal · Adultos · Próximamente</span>
+            <div class="preview-title">Tu carta<br>es única</div>
+          </div>
+          <div>
+            <p class="preview-excerpt">"Cada documento incluye portada, arquetipo del Ascendente, análisis solar y lunar, eje nodal, Quirón, Lilith y colofón de síntesis."</p>
+          </div>
+        </div>
+        <div class="preview-fade"></div>
+        <svg class="prev-rings" width="140" height="140" viewBox="0 0 140 140">
+          <circle cx="70" cy="70" r="65" fill="none" stroke="#7a80c8" stroke-width="0.5"/>
+          <circle cx="70" cy="70" r="45" fill="none" stroke="#7a80c8" stroke-width="0.5"/>
+        </svg>
+      </div>
+      <div class="teaser-body">
+        <span class="badge-soon">Más ejemplos próximamente</span>
+        <div class="teaser-name">Lo que incluye tu informe</div>
+        <p class="teaser-desc">Portada personalizada · Arquetipo del Ascendente · Sol y Luna en profundidad · Eje nodal · Quirón · Lilith · Planetas retrógrados · Colofón con frase-faro. Entre 4.000 y 6.000 palabras interpretativas.</p>
+        <a href="index.html#productos" class="teaser-btn">Pedir mi Carta Natal →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><span class="divider-glyph">☽</span><div class="divider-line"></div></div>
+
+<!-- ARMÓNICOS -->
+<section class="section">
+  <span class="section-eyebrow">· Carta de Armónicos</span>
+  <h2 class="section-title">Los patrones más profundos de tu personalidad</h2>
+  <p class="section-sub">Una lectura avanzada que revela lo que opera por debajo de la superficie.</p>
+
+  <div class="teasers">
+    <div class="teaser-card" onclick="window.open('juli-armonicos.html','_blank')">
+      <div class="teaser-preview" style="background:linear-gradient(135deg,#081820,#0d1030)">
+        <div class="teaser-preview-inner">
+          <div>
+            <span class="preview-label">Armónicos · Ejemplo real</span>
+            <div class="preview-title">Julí<br>A8 dominante</div>
+          </div>
+          <div>
+            <p class="preview-excerpt">"La Transformación · La crisis fértil · Amplitud 0.537 — el armónico que marca la frecuencia fundamental de esta psique."</p>
+            <div class="prev-dots">
+              <div class="prev-dot active"></div>
+              <div class="prev-dot active"></div>
+              <div class="prev-dot"></div>
+            </div>
+          </div>
+        </div>
+        <div class="preview-fade"></div>
+        <svg class="prev-rings" width="140" height="140" viewBox="0 0 140 140">
+          <path d="M5,70 Q35,30 70,70 Q105,110 135,70" fill="none" stroke="#4a9e90" stroke-width="0.8" opacity="0.5"/>
+          <path d="M5,70 Q25,50 70,70 Q115,90 135,70" fill="none" stroke="#4a9e90" stroke-width="1.2" opacity="0.8"/>
+          <path d="M5,70 Q45,55 70,70 Q95,85 135,70" fill="none" stroke="#4a9e90" stroke-width="0.6" opacity="0.4"/>
+        </svg>
+      </div>
+      <div class="teaser-body">
+        <span class="teaser-product">Carta de Armónicos</span>
+        <div class="teaser-name">Lectura de Julí</div>
+        <p class="teaser-desc">Armónico dominante A8 (La Transformación) con amplitud 0.537. Espectro completo A1–A12, conjunciones ocultas y lectura alquímica de los arquetipos en juego.</p>
+        <a href="juli-armonicos.html" target="_blank" class="teaser-btn">Ver ejemplo completo →</a>
+      </div>
+    </div>
+
+    <div class="teaser-card">
+      <div class="teaser-preview" style="background:linear-gradient(135deg,#081820,#0a1428)">
+        <div class="teaser-preview-inner">
+          <div>
+            <span class="preview-label">Armónicos · Qué incluye</span>
+            <div class="preview-title">El espectro<br>vibracional</div>
+          </div>
+          <div>
+            <p class="preview-excerpt">"Cada armónico del A1 al A12 tiene su arquetipo junguiano. El dominante define la frecuencia fundamental de tu psique."</p>
+          </div>
+        </div>
+        <div class="preview-fade"></div>
+      </div>
+      <div class="teaser-body">
+        <span class="badge-soon">Calculadora en: calculo-de-armonicos-directo.netlify.app</span>
+        <div class="teaser-name">12 arquetipos, 1 frecuencia tuya</div>
+        <p class="teaser-desc">El Ser completo · La Sombra · El Niño divino · El Héroe · El Sí-mismo · El Servidor · Lo Numinoso · La Transformación · El Viejo Sabio · El Senex · El Visionario · El Océano.</p>
+        <a href="index.html#productos" class="teaser-btn">Pedir mis Armónicos →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><span class="divider-glyph">♄</span><div class="divider-line"></div></div>
+
+<!-- REVOLUCIÓN SOLAR -->
+<section class="section">
+  <span class="section-eyebrow">· Revolución Solar</span>
+  <h2 class="section-title">El mapa de tu año personal</h2>
+  <p class="section-sub">Qué temas activa el cielo en tu cumpleaños y cómo aprovechar cada etapa del ciclo.</p>
+
+  <div class="teasers">
+    <div class="teaser-card">
+      <div class="teaser-preview" style="background:linear-gradient(135deg,#1a1008,#0d1030)">
+        <div class="teaser-preview-inner">
+          <div>
+            <span class="preview-label">Revolución Solar · Próximamente</span>
+            <div class="preview-title">Tu año<br>en detalle</div>
+          </div>
+          <div>
+            <p class="preview-excerpt">"Ascendente de la RS · Luna del año · Casas activas · Agenda cronológica con ventanas de acción, consolidación y revisión."</p>
+          </div>
+        </div>
+        <div class="preview-fade"></div>
+        <svg class="prev-rings" width="140" height="140" viewBox="0 0 140 140">
+          <path d="M70,70 Q80,50 90,55 Q100,60 95,75 Q90,90 70,92 Q50,94 45,78 Q40,62 55,52 Q65,44 78,52" fill="none" stroke="#c8a040" stroke-width="1" opacity="0.6"/>
+          <circle cx="70" cy="70" r="10" fill="#c8a040" opacity="0.4"/>
+        </svg>
+      </div>
+      <div class="teaser-body">
+        <span class="badge-soon">Ejemplo disponible pronto</span>
+        <div class="teaser-name">Una agenda real para tu ciclo</div>
+        <p class="teaser-desc">Combina la carta de revolución solar con los tránsitos del año. Incluye fechas concretas: cuándo avanzar, cuándo consolidar, cuándo revisar. También los tránsitos transpersonales con su impacto personal.</p>
+        <a href="index.html#productos" class="teaser-btn">Pedir mi Revolución Solar →</a>
+      </div>
+    </div>
+
+    <div class="teaser-card">
+      <div class="teaser-preview" style="background:linear-gradient(135deg,#100c08,#0d1030)">
+        <div class="teaser-preview-inner">
+          <div>
+            <span class="preview-label">Revolución Solar · Estructura</span>
+            <div class="preview-title">11 secciones<br>+ agenda</div>
+          </div>
+          <div>
+            <p class="preview-excerpt">"El Ascendente de la RS define el tono del año. La Luna RS define la necesidad emocional dominante. Las casas activas, el escenario."</p>
+          </div>
+        </div>
+        <div class="preview-fade"></div>
+      </div>
+      <div class="teaser-body">
+        <span class="teaser-product">Revolución Solar · USD 50</span>
+        <div class="teaser-name">Lo que incluye</div>
+        <p class="teaser-desc">Tono del año · Tema central · Luna del ciclo · Casas activas · Planetas personales · Júpiter y Saturno · Tránsitos transpersonales · Eje nodal · Agenda cronológica del año · Colofón con frase-faro.</p>
+        <a href="index.html#productos" class="teaser-btn">Pedir mi Revolución Solar →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><span class="divider-glyph">☽</span><div class="divider-line"></div></div>
+
+<!-- GUÍA LUNAR + NIÑOS -->
+<section class="section">
+  <span class="section-eyebrow">· Guía Lunar · Carta Natal Niños</span>
+  <h2 class="section-title">Para el mes y para la familia</h2>
+  <p class="section-sub">Tu calendario interior mensual y la guía para acompañar mejor a tus hijos.</p>
+
+  <div class="teasers">
+    <div class="teaser-card">
+      <div class="teaser-preview" style="background:linear-gradient(135deg,#081428,#06091a)">
+        <div class="teaser-preview-inner">
+          <div>
+            <span class="preview-label">Guía Lunar Mensual · Próximamente</span>
+            <div class="preview-title">Tu ciclo<br>personalizado</div>
+          </div>
+          <div>
+            <p class="preview-excerpt">"Luna Nueva · Cuarto creciente · Luna Llena · Cuarto menguante. Cada fase con fechas exactas y recomendaciones para tu carta natal."</p>
+          </div>
+        </div>
+        <div class="preview-fade"></div>
+        <svg class="prev-rings" width="140" height="140" viewBox="0 0 140 140">
+          <circle cx="30" cy="70" r="18" fill="none" stroke="#8aaec8" stroke-width="0.8" opacity="0.5"/>
+          <circle cx="70" cy="50" r="22" fill="none" stroke="#8aaec8" stroke-width="1.2" opacity="0.8"/>
+          <circle cx="110" cy="70" r="18" fill="none" stroke="#8aaec8" stroke-width="0.8" opacity="0.5"/>
+        </svg>
+      </div>
+      <div class="teaser-body">
+        <span class="badge-soon">Ejemplo disponible pronto</span>
+        <div class="teaser-name">Guía Lunar Mensual</div>
+        <p class="teaser-desc">Las lunaciones del mes en relación directa con tu carta natal. Activaciones partiles, tránsitos del mes con fechas y recomendaciones concretas de cuándo actuar y cuándo pausar. USD 25.</p>
+        <a href="index.html#productos" class="teaser-btn">Pedir mi Guía Lunar →</a>
+      </div>
+    </div>
+
+    <div class="teaser-card">
+      <div class="teaser-preview" style="background:linear-gradient(135deg,#200818,#0d1030)">
+        <div class="teaser-preview-inner">
+          <div>
+            <span class="preview-label">Carta Natal Niños · Próximamente</span>
+            <div class="preview-title">Para tu<br>hijo o hija</div>
+          </div>
+          <div>
+            <p class="preview-excerpt">"Una sección específica para padres con orientaciones concretas por etapa. Qué necesita emocionalmente, cómo aprende, qué talentos tiene."</p>
+          </div>
+        </div>
+        <div class="preview-fade"></div>
+        <svg class="prev-rings" width="140" height="140" viewBox="0 0 140 140">
+          <circle cx="70" cy="70" r="25" fill="none" stroke="#c87890" stroke-width="0.8" opacity="0.6"/>
+          <line x1="70" y1="45" x2="40" y2="25" stroke="#c87890" stroke-width="0.6" opacity="0.4"/>
+          <line x1="70" y1="45" x2="100" y2="25" stroke="#c87890" stroke-width="0.6" opacity="0.4"/>
+          <circle cx="40" cy="25" r="5" fill="none" stroke="#c87890" stroke-width="0.8" opacity="0.6"/>
+          <circle cx="100" cy="25" r="5" fill="none" stroke="#c87890" stroke-width="0.8" opacity="0.6"/>
+        </svg>
+      </div>
+      <div class="teaser-body">
+        <span class="badge-soon">Ejemplo disponible pronto</span>
+        <div class="teaser-name">Carta Natal · Niños</div>
+        <p class="teaser-desc">En lenguaje claro para padres. Incluye los talentos naturales, necesidades emocionales, estilo de aprendizaje y una guía de acompañamiento por etapa. También como carta directa al niño o niña. USD 35.</p>
+        <a href="index.html#productos" class="teaser-btn">Pedir la Carta de mi Hijo/a →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"><div class="divider-line"></div><span class="divider-glyph">✦</span><div class="divider-line"></div></div>
+
+<!-- CTA FINAL -->
+<section class="cta-section">
+  <h2>¿Te convenciste?<br><em>El tuyo te espera.</em></h2>
+  <p>Cada informe se elabora con tus datos exactos y se entrega en menos de 24 horas.</p>
+  <div class="cta-btns">
+    <a href="index.html#productos" class="btn-primary">Ver todas las lecturas</a>
+    <a href="resenas.html" class="btn-ghost">Leer reseñas ✦</a>
+  </div>
+</section>
+
+<footer>
+  <p>CELESTES · lecturas astrológicas de autor · celestes.app</p>
+</footer>
+
+</body>
+</html>
