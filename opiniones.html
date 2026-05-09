@@ -287,7 +287,7 @@ footer p{font-family:'Cinzel',serif;font-size:.6rem;letter-spacing:.2em;color:va
       <label>Tu email (no se publica, solo para verificar)</label>
       <input type="email" id="r-email" placeholder="tu@email.com">
     </div>
-    <button class="btn-submit" onclick="enviarResena()">Enviar mi reseña →</button>
+    <button class="btn-submit" onclick="enviarResena()">Compartir mi experiencia &#10022;</button>
     <p class="form-note">Las reseñas se publican tras verificación. Tu email nunca se muestra públicamente.</p>
 
     <div id="resena-ok" style="display:none;margin-top:1.2rem;padding:1rem 1.4rem;border:.5px solid rgba(8,247,250,.3);border-radius:var(--r);background:rgba(8,247,250,.05)">
@@ -353,12 +353,12 @@ async function enviarResena() {
     });
     if (res.ok) {
       document.getElementById('resena-ok').style.display = 'block';
-      btn.textContent = '¡Enviada! ✦';
+      btn.textContent = '&#10022; &#161;Enviada!';
     } else {
       throw new Error();
     }
   } catch {
-    btn.textContent = 'Enviar mi reseña →';
+    btn.textContent = 'Compartir mi experiencia &#10022;';
     btn.disabled = false;
     alert('Hubo un error. Por favor intentá de nuevo.');
   }
